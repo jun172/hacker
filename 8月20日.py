@@ -79,5 +79,5 @@ print("-----")
 for a in range(1, 10):
     for b in range(1, 10):
         ans = a * b
-        print(f"{a}×{b}={ans}", end="\t")
+        print(f"{a}+{b}={ans}", end="\t")
     print("")

@@ -1,95 +1,90 @@
-#1. サイバー攻撃系・解析系（ログ解析、安全演習）
+# ===============================
+# サイバー攻撃系・解析系 実習まとめ
+# ===============================
+import re
+import hashlib
+import random
+import string
 
-#入力->条件分離->出力
-use_name=int(input('数値を入力'))
-if use_name >0:
+# 1. 入力 -> 条件分離 -> 出力
+num = int(input('数値を入力してください: '))
+if num > 0:
     print('正の数')
-elif use_name <0:
+elif num < 0:
     print('負の数')
 else:
     print('ゼロ')
-    
-#入力->ファイル処理->出力
-with open ("access.log","r",encoding="utf-8") as f:
-    file=f.read("error")
-    print("access.log")
-    print(file)
-    
-#入力->モジュール->ファイル処理->for文回転->出力
-import re
 
-ip_adress=["192.168.0.1"]
-with open ("access.log","r",encoding="utf-8") as f:
+# 2. ファイル処理 -> 出力
+with open("access.log", "r", encoding="utf-8") as f:
+    data = f.read()
+    print("=== access.log の内容 ===")
+    print(data)
+
+# 3. モジュール -> ファイル処理 -> IP抽出
+ip_address = []
+with open("access.log", "r", encoding="utf-8") as f:
     for line in f:
-        ips=re.findall("192.168.0.1",line)
-        ip_adress.extend(ips)
+        ips = re.findall(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", line)
+        ip_address.extend(ips)
+print("検出されたIP:", set(ip_address))
 
-#入力->def関数条件分離->出力
-tyoe=input("入力")
+# 4. SQLインジェクション風ワード検知
+user_input = input("文字を入力してください: ")
 
-def  get_mozi (DROPTABLE):
-    if DROPTABLE ==DROPTABLE:
-        print("含まれている")
+def detect_sql(keyword: str, text: str):
+    if keyword in text.upper():
+        print(f"危険ワード '{keyword}' が含まれています！")
     else:
-        print("含まれていない")
-get_mozi("DROP TABLE")
+        print("安全な文字列です")
 
-#入力->条件分離->終了
-with open ("users.txt","r",encoding="utf-8") as f:
-    for pasword in f:
-        if pasword <8:
-            print("弱い")
-            
-#モジュール->ファイル処理->ハッシュ化処理->出力
-import hashlib
+detect_sql("DROP TABLE", user_input)
 
-listk=[]
-if not all(ch in "0127druHSWKD" for ch in listk) or len(listk) !=64:
-    hashrd=hashlib.sha512(listk.encode()).hexdigest()
-    with open ("config.txt","w",encoding="utf-8") as f:
-        f.write(hashrd)
-        print("config.txt をハッシュ化して保存んしました")
-else:
-    print("すでにハッシュ済み")
+# 5. パスワード強度判定 (長さ)
+with open("users.txt", "r", encoding="utf-8") as f:
+    for pw in f:
+        pw = pw.strip()
+        if len(pw) < 8:
+            print(f"{pw}: 弱いパスワード")
+        else:
+            print(f"{pw}: 強いパスワード")
 
-#入力->URL取得->条件分離->はい-->出力
-                #|          |
-                #->いいえ ---^
-import re
-URL= input("URLを入力してください:")
+# 6. ファイル内容をハッシュ化して保存
+with open("config.txt", "r", encoding="utf-8") as f:
+    config = f.read()
 
-if re.match("http://",URL):
-    print("安全ではない通信")
-elif re.match("https://",URL):
-    print("暗号化通信",URL)
+hashed = hashlib.sha512(config.encode()).hexdigest()
+with open("config_hashed.txt", "w", encoding="utf-8") as f:
+    f.write(hashed)
+print("config.txt をハッシュ化して保存しました")
+
+# 7. URL安全性判定
+url = input("URLを入力してください: ")
+if url.startswith("http://"):
+    print("⚠ 安全ではない通信")
+elif url.startswith("https://"):
+    print("✅ 暗号化通信")
 else:
     print("不明なURL形式です")
 
-#def関数->条件分離->出力
-import os 
-import random
-import string
-import hashlib
-def password (size=3):
-    ched =string.ascii_letters+ string.digits+ string.ascii_uppercase
-    return ''.join(random.choice(ched) for _ in range(size))
+# 8. ランダムパスワード生成
+def generate_password(size=8):
+    chars = string.ascii_letters + string.digits + string.punctuation
+    return ''.join(random.choice(chars) for _ in range(size))
 
-print("自動生成パスワード:", password(3))
-print("\n")
+print("自動生成パスワード:", generate_password(12))
 
-#モジュール->リスト処理->ファイル処理->for文回転->変数ip->出力
-import re
-ip_list=[]
-with open("access.log","r", encoding="utf-8") as f:
+# 9. access.logからIP一覧出力
+ip_list = []
+with open("access.log", "r", encoding="utf-8") as f:
     for line in f:
-        ips = re.findall(r"\b(?:[-9]{1,3}\.){3}[0-9]{1,3}\b", line)
+        ips = re.findall(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", line)
         ip_list.extend(ips)
-        
-#入力->回文判定->出力
-strig = input("回文判定する文字列を入力してください:")
+print("access.log 内の全IP:", set(ip_list))
 
-if string == string[::-1]:
+# 10. 回文判定
+string_input = input("回文判定する文字列を入力してください: ")
+if string_input == string_input[::-1]:
     print("回文です")
 else:
     print("回文ではありません")
-    
