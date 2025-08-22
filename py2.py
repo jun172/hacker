@@ -52,7 +52,7 @@ use = input('入力: ')
 if ";" in use or "'" in use:
     print("危険文字あり")
 
-# 15. 簡易ブルートフォース (a〜z 4桁総当たり)
+# 15. 簡易ブルートフォース (a〜z 4桁総当たり) 不正アクセス禁止ほうに注意
 import string
 words = list(string.ascii_lowercase)
 passwords = []
