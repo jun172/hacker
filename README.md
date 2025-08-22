@@ -1,4 +1,6 @@
 一部には不正アクセス禁止法に抵触する可能性があります。
+総務省のサイバーセキュリティ関連の法律・ガイドラインを見てください
+[https://www.soumu.go.jp/main_sosiki/cybersecurity/kokumin/basic/legal/]
 # Python基礎＋応用 ハッキング風 練習問題集
 
 このリポジトリは、Pythonの基礎から応用までを学びながら、
