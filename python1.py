@@ -29,7 +29,7 @@ for attempts in range(5):
 ports = [100, 30, 22]
 for p in ports:
     if p == 22:
-        print('breik')  # 本来は "break" だが仕様上そのまま
+        print('breik')  
         break
     else:
         print('発見しました')

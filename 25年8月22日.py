@@ -231,6 +231,7 @@ print("タイトル:", soup.title.string)
 # → HTML文書から<title>の中身を抽出
 
 # 23: scapy（実行注意：LAN内スキャンなどは法律違反になる可能性がある）
+#自分の管理下ではないネットワークで実行すると不正アクセス禁止法に抵触する可能性あり
 # LANスキャンの学習例（実行不可）
 from scapy.all import ARP, Ether, srp
 
