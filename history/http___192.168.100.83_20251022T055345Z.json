@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-10-22T05:53:45.622514Z",
+  "target": "http://192.168.100.83",
+  "current_ports": [],
+  "allowed_ports": [],
+  "new_ports": [],
+  "closed_ports": [],
+  "raw_nmap": "# Nmap 7.97 scan initiated Wed Oct 22 14:53:45 2025 as: nmap -sT -p- --min-rate 1000 --open -oG - http://192.168.100.83\n# Nmap done at Wed Oct 22 14:53:45 2025 -- 0 IP addresses (0 hosts up) scanned in 0.02 seconds\n",
+  "nmap_returncode": 0,
+  "nmap_stderr": "Unable to split netmask from target expression: \"http://192.168.100.83\"\nWARNING: No targets were specified, so 0 hosts scanned.\n"
+}

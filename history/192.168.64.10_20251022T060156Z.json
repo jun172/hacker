@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-10-22T06:01:56.003430Z",
+  "target": "192.168.64.10",
+  "current_ports": [],
+  "allowed_ports": [],
+  "new_ports": [],
+  "closed_ports": [],
+  "raw_nmap": "# Nmap 7.97 scan initiated Wed Oct 22 15:01:49 2025 as: nmap -sT -p- --min-rate 1000 --open -oG - 192.168.64.10\n# Nmap done at Wed Oct 22 15:01:55 2025 -- 1 IP address (0 hosts up) scanned in 6.52 seconds\n",
+  "nmap_returncode": 0,
+  "nmap_stderr": ""
+}

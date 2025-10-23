@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-10-16T18:02:29.105395Z",
+  "target": "127.0.0.1",
+  "current_ports": [
+    5000,
+    5500,
+    6379,
+    7000,
+    8021,
+    9150,
+    9151,
+    57535,
+    58403
+  ],
+  "allowed_ports": [],
+  "new_ports": [
+    5000,
+    5500,
+    6379,
+    7000,
+    8021,
+    9150,
+    9151,
+    57535,
+    58403
+  ],
+  "closed_ports": [],
+  "raw_nmap": "# Nmap 7.97 scan initiated Fri Oct 17 03:02:27 2025 as: nmap -sT -p- --min-rate 1000 --open -oG - 127.0.0.1\nHost: 127.0.0.1 (localhost)\tStatus: Up\nHost: 127.0.0.1 (localhost)\tPorts: 5000/open/tcp//upnp///, 5500/open/tcp//hotline///, 6379/open/tcp//redis///, 7000/open/tcp//afs3-fileserver///, 8021/open/tcp//ftp-proxy///, 9150/open/tcp/////, 9151/open/tcp/////, 57535/open/tcp/////, 58403/open/tcp/////\n# Nmap done at Fri Oct 17 03:02:29 2025 -- 1 IP address (1 host up) scanned in 1.48 seconds\n",
+  "nmap_returncode": 0,
+  "nmap_stderr": "Strange read error from 127.0.0.1 (22 - 'Invalid argument')\n"
+}
