@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>XSS フォーム攻撃デモ</title>
+
+<style>
+/* ===== 全体 ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", monospace;
+  background: #050505;
+  color: #00ff9c;
+}
+
+/* ===== ヘッダー ===== */
+header {
+  background: linear-gradient(90deg, #0a0a0a, #001f14);
+  border-bottom: 2px solid #00ff9c;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  color: #ff5252;
+  text-shadow: 0 0 8px #ff1744;
+}
+
+header p {
+  font-size: 14px;
+  color: #8affc1;
+}
+
+/* ===== メイン ===== */
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* ===== 情報ブロック ===== */
+.info {
+  background: #0d1f17;
+  border-left: 6px solid #ffca28;
+  padding: 16px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 15px rgba(255,202,40,0.2);
+}
+
+/* ===== カード ===== */
+.card {
+  background: #020202;
+  border: 1px solid #00ff9c;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0,255,156,0.25);
+}
+
+/* ===== フォーム ===== */
+form {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  background: black;
+  color: #00ff9c;
+  border: 1px solid #00ff9c;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+input::placeholder {
+  color: #4dffb5;
+}
+
+button {
+  background: #00ff9c;
+  color: black;
+  border: none;
+  padding: 10px 18px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1affad;
+}
+
+/* ===== 出力エリア ===== */
+#posts {
+  margin-top: 30px;
+  background: black;
+  border: 1px solid #ff5252;
+  padding: 20px;
+  min-height: 60px;
+  box-shadow: 0 0 25px rgba(255,82,82,0.35);
+  animation: alertGlow 1.5s infinite alternate;
+}
+
+/* ===== 危険アニメーション ===== */
+@keyframes alertGlow {
+  from { box-shadow: 0 0 10px rgba(255,82,82,0.3); }
+  to   { box-shadow: 0 0 30px rgba(255,82,82,0.8); }
+}
+
+/* ===== コード風 ===== */
+code {
+  color: #ffca28;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>⚠ XSS 攻撃デモ</h1>
+  <p>ユーザー入力が「コード」として実行される危険性</p>
+</header>
+
+<main>
+
+<div class="info">
+  <b>⚠ 危険：</b><br>
+  入力内容がそのまま <b>HTMLとして実行</b> されます。<br>
+  例：<code> img src=x onerror="alert('XSS')"</code>
+</div>
+
+<div class="card">
+  <form id="form">
+    <input type="text" id="msg" placeholder=>
+    <button>EXECUTE</button>
+  </form>
+</div>
+
+<div id="posts">
+  <!-- ここに攻撃結果が表示される -->
+</div>
+
+</main>
+
+<script>
+document.getElementById("form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const input = document.getElementById("msg").value;
+
+  // ❌ 超危険：XSS脆弱コード
+  document.getElementById("posts").innerHTML = input;
+
+  document.getElementById("msg").value = "";
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>緊急請求情報</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Arial Black';
+        background: black;
+        color: white;
+        overflow: hidden;
+    }
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.75);
+        z-index: 1;
+    }
+
+    .container {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+        padding-top: 60px;
+        animation: shake 0.6s infinite;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(0px, 0px); }
+        25% { transform: translate(3px, -3px); }
+        50% { transform: translate(-3px, 3px); }
+        75% { transform: translate(3px, 3px); }
+        100% { transform: translate(-3px, -3px); }
+     }
+
+    h1 {
+        font-size: 48px;
+        color: red;
+        text-shadow: 0 0 10px red;
+    }
+
+    .alert-box {
+        background: #220000;
+        border: 3px solid red;
+        padding: 20px;
+        margin: 20px auto;
+        width: 60%;
+    }
+
+    .main-text {
+        font-size: 26px;
+    }
+
+    .highlight {
+        font-size: 30px;
+        color: yellow;
+        text-shadow: 0 0 10px yellow;
+    }
+
+    .bill {
+        font-size: 22px;
+        margin: 20px auto;
+    }
+
+    .price {
+        color: yellow;
+        font-size: 36px;
+    }
+
+    .call-btn {
+        margin-top: 30px;
+        background: red;
+        border: none;
+        padding: 20px 40px;
+        font-size: 26px;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 0 10px red;
+        animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+        0% { background: red; }
+        50% { background: yellow; color: black; }
+        100% { background: red; }
+    }
+
+    .warning {
+        margin-top: 15px;
+        color: red;
+        font-size: 14px;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+    <h1>⚠️ 緊急請求発生 ⚠️</h1>
+
+    <div class="alert-box">
+        <p class="main-text"><strong>あなたの情報</strong> が使用されました。</p>
+        <p class="highlight">銀行への請求が確定しています！</p>
+    </div>
+
+    <div class="bill">
+        <p>支払金額：<span class="price">¥89,800</span></p>
+        <p>請求先：<span class="info">**** **** ****</span></p>
+    </div>
+
+    <button class="call-btn" onclick="fakeCall()">📞 サポートに電話</button>
+
+    <p class="warning">※支払い完了までページは閉じられません</p>
+</div>
+
+<audio id="alarm" autoplay loop>
+    <source src="alarm.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+window.onload = function() {
+    const alarm = document.getElementById("alarm");
+    alarm.volume = 0.7;
+
+    // 閉じると警告
+    window.onbeforeunload = function() {
+        return "警告：支払いが完了していません。";
+    };
+
+    // フルスクリーン
+    document.body.requestFullscreen().catch(()=>{});
+};
+
+// ダミー電話ボタン
+function fakeCall() {
+    alert("サポートは現在混雑しています。\n請求は自動的に継続します。");
+}
+</script>
+
+</body>
+</html>

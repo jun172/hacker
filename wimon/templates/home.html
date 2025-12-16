@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>CyberLab - White Hacker</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;400&display=swap" rel="stylesheet">
+<style>
+/* === GLOBAL STYLE === */
+body {
+    margin:0;
+    font-family:"Roboto Mono", monospace;
+    background: linear-gradient(135deg, #e3f2fd, #f0f4f8); /* 明るめブルー */
+    color:#1a1a1a;
+    overflow-x:hidden;
+}
+
+/* HEADER */
+.header-title {
+    text-align:center;
+    padding:40px 0 20px;
+    font-size:36px;
+    font-weight:bold;
+    color:#1565c0;
+}
+
+/* CARD GRID */
+.container {
+    width:90%;
+    margin:0 auto 50px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+/* CARD */
+.card {
+    background: linear-gradient(145deg, #ffffff, #e1f5fe);
+    border-radius:12px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+    cursor:pointer;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+.card h2 {
+    margin:0 0 10px;
+    font-size:20px;
+    color:#0288d1;
+}
+.card p {
+    font-size:14px;
+    color:#555;
+    margin-bottom:15px;
+}
+.card a {
+    display:inline-block;
+    padding:8px 16px;
+    background:#03a9f4;
+    color:#fff;
+    border-radius:4px;
+    text-decoration:none;
+    transition:0.3s;
+}
+.card a:hover {
+    background:#039be5;
+}
+
+/* FOOTER */
+.footer {
+    text-align:center;
+    padding:25px;
+    font-size:14px;
+    color:#666;
+}
+</style>
+</head>
+<body>
+
+<div class="header-title">CyberLab - White Hacker</div>
+
+<div class="container">
+    <div class="card">
+        <h2>SQL インジェクション</h2>
+        <p>データベース表示</p>
+        <a href="/SQL/login">Start</a>
+    </div>
+    <div class="card">
+        <h2>XSS</h2>
+        <p>コメント欄に仕掛ける攻撃</p>
+        <a href="/XSS/">Start</a>
+    </div>
+    <div class="card">
+        <h2>CSRF</h2>
+        <p>他人の操作を勝手に実行させる</p>
+        <a href="/CSRF/CSRF.html">Start</a>
+    </div>
+    <div class="card">
+        <h2>Directory Traversal</h2>
+        <p>意図しないファイルにアクセスできてしまう</p>
+        <a href="/DT">Start</a>
+    </div>
+    <div class="card">
+        <h2>ワンクリック詐欺</h2>
+        <p>多額の料金の支払いを求められる詐欺</p>
+        <a href="/ONE">Start</a>
+    </div>
+    <div class="card">
+        <h2>ファイルアップロード攻撃</h2>
+        <p>アップロードファイルを悪用してサーバーを乗っ取る攻撃</p>
+        <a href="/FU">Start</a>
+    </div>
+    <div class="card">
+        <h2>ダークウェブマーケット</h2>
+        <p>違法な取引</p>
+        <a href="{{ url_for('DARK.market') }}">Start</a>
+    </div>
+</div>
+
+<div class="footer">※教育目的のみ。攻撃利用禁止。</div>
+
+</body>
+</html>

@@ -1,5 +1,0 @@
-{
-  "error": "PcapReader open failed: [Errno 2] No such file or directory: 'uploads/tcp.pcapng'",
-  "charts": {},
-  "duration_sec": 0.0
-}

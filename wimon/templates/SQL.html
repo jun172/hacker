@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>はじめてのSQLインジェクション</title>
+<style> 
+    /* ===============================
+    全体ベース
+    =============================== */
+ body {
+   font-family: "Segoe UI", system-ui, sans-serif;
+   background: radial-gradient(circle at top, #0f172a, #020617);
+   color: #e5e7eb;
+   line-height: 1.9;
+   margin: 0;
+ }
+ 
+ /* ===============================
+    ヘッダー
+    =============================== */
+ header {
+   background: linear-gradient(135deg, #020617, #1e3a8a, #7c2d12);
+   text-align: center;
+   padding: 56px 20px;
+   box-shadow: 0 0 40px rgba(255,80,80,0.25);
+ }
+ 
+ header h1 {
+   margin: 0;
+   font-size: 3em;
+   letter-spacing: 4px;
+   text-shadow: 0 0 12px rgba(255,255,255,0.25);
+ }
+ 
+ header p {
+   opacity: 0.9;
+ }
+ 
+ /* ===============================
+    メインレイアウト
+    =============================== */
+ main {
+   max-width: 980px;
+   margin: 0 auto;
+   padding-bottom: 60px;
+ }
+ 
+ /* ===============================
+    セクション（カード）
+    =============================== */
+ section {
+   background: linear-gradient(180deg, #020617, #020617) padding-box,
+               linear-gradient(135deg, #334155, #0ea5e9, #22c55e) border-box;
+   border: 2px solid transparent;
+   border-radius: 16px;
+   padding: 32px;
+   margin: 48px 16px;
+   box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+ }
+ 
+ /* ===============================
+    見出し
+    =============================== */
+ h2 {
+   margin-top: 0;
+   padding-left: 14px;
+   border-left: 6px solid #38bdf8;
+ }
+ 
+ h3 {
+   margin-top: 28px;
+ }
+ 
+ /* ===============================
+    ノート（流れ説明）
+    =============================== */
+ .note {
+   background: radial-gradient(circle, #020617, #020617);
+   border-left: 8px solid #38bdf8;
+ }
+ 
+ .step {
+   font-weight: bold;
+   color: #7dd3fc;
+ }
+ 
+ /* ===============================
+    コード表示（SQL端末風）
+    =============================== */
+ pre {
+   background: #020617;
+   color: #e5e7eb;
+   padding: 18px;
+   border-radius: 10px;
+   font-size: 0.95em;
+   overflow-x: auto;
+   box-shadow: inset 0 0 20px rgba(14,165,233,0.2);
+ }
+ 
+ /* ===============================
+    危険ゾーン（SQLインジェクション）
+    =============================== */
+ .danger {
+   background: radial-gradient(circle, #7f1d1d, #020617);
+   border: 2px solid #ef4444;
+   position: relative;
+   animation: alertPulse 1.8s infinite;
+ }
+ 
+ .danger::before {
+   content: "⚠ SQL INJECTION";
+   position: absolute;
+   top: -18px;
+   right: 20px;
+   background: #ef4444;
+   color: white;
+   padding: 6px 14px;
+   border-radius: 999px;
+   font-size: 0.8em;
+   letter-spacing: 1px;
+ }
+ 
+ @keyframes alertPulse {
+   0%   { box-shadow: 0 0 0 rgba(239,68,68,0); }
+   50%  { box-shadow: 0 0 30px rgba(239,68,68,0.8); }
+   100% { box-shadow: 0 0 0 rgba(239,68,68,0); }
+ }
+ 
+ /* ===============================
+    フォーム（ログイン端末）
+    =============================== */
+ .practice form {
+   display: flex;
+   flex-direction: column;
+   max-width: 420px;
+ }
+ 
+ .practice input {
+   background: #020617;
+   color: #e5e7eb;
+   border: 1px solid #334155;
+   padding: 12px;
+   margin-bottom: 14px;
+   border-radius: 8px;
+ }
+ 
+ .practice input:focus {
+   outline: none;
+   border-color: #38bdf8;
+   box-shadow: 0 0 10px rgba(56,189,248,0.6);
+ }
+ 
+ .practice button {
+   background: linear-gradient(135deg, #2563eb, #0ea5e9);
+   color: white;
+   padding: 14px;
+   font-size: 1em;
+   border: none;
+   border-radius: 10px;
+   cursor: pointer;
+   box-shadow: 0 8px 20px rgba(14,165,233,0.5);
+ }
+ 
+ .practice button:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 12px 30px rgba(14,165,233,0.8);
+ }
+ 
+ /* ===============================
+    安全ゾーン（防御成功）
+    =============================== */
+ .safe {
+   background: radial-gradient(circle, #052e16, #020617);
+   border: 2px solid #22c55e;
+   position: relative;
+ }
+ 
+ .safe::before {
+   content: "✔ PROTECTED";
+   position: absolute;
+   top: -18px;
+   right: 20px;
+   background: #22c55e;
+   color: #022c22;
+   padding: 6px 14px;
+   border-radius: 999px;
+   font-size: 0.8em;
+   font-weight: bold;
+ }
+ 
+ /* ===============================
+    リスト
+    =============================== */
+ ul {
+   padding-left: 20px;
+ }
+ 
+</style>
+</head>
+<body>
+
+<header>
+  <h1>はじめてのSQLインジェクション</h1>
+  <p>「なぜ危ないのか」をイメージで理解しよう</p>
+</header>
+
+<main>
+
+<section>
+  <h2>SQLってなに？</h2>
+  <p>SQLは <b>データベースにお願い（命令）をするための言語</b> です。</p>
+  <ul>
+    <li>データを探す（SELECT）</li>
+    <li>データを追加する（INSERT）</li>
+    <li>データを変更する（UPDATE）</li>
+    <li>データを消す（DELETE）</li>
+  </ul>
+  <p>例：ユーザー名とパスワードを確認する命令</p>
+  <pre>
+SELECT * FROM users
+WHERE username = 'admin' AND password = '1234';
+  </pre>
+</section>
+
+<section class="note">
+  <h2>ログイン処理の流れ（超かんたん）</h2>
+  <p class="step">① ブラウザ</p>
+  <p>ユーザーがIDとパスワードを入力する</p>
+  <p class="step">② サーバー（PHPなど）</p>
+  <p>入力された値を使ってSQLを作り、データベースに聞く</p>
+  <p class="step">③ データベース</p>
+  <p>条件に合うユーザーがいるか調べて、結果を返す</p>
+</section>
+
+<section class="danger">
+  <h2>SQLインジェクションとは？</h2>
+  <p>
+    <b>ユーザーの入力が、そのままSQL文に混ざってしまう</b> ことで起きる攻撃です。
+  </p>
+  <p>本来はプログラムが決めたSQLだけが実行されるべきですが、
+  文字列をつなげてSQLを作ると、<b>攻撃者がSQLの形を変えられます</b>。</p>
+
+  <h3>普通のログインSQL</h3>
+  <pre>
+SELECT * FROM users
+WHERE username = 'admin' AND password = '1234';
+  </pre>
+
+  <h3>攻撃者の入力例（ユーザー名欄）</h3>
+  <pre>' OR '1'='1</pre>
+
+  <h3>実際に実行されてしまうSQL</h3>
+  <pre>
+SELECT * FROM users
+WHERE username = '' OR '1'='1' AND password = 'xxx';
+  </pre>
+
+  <p>
+    <b>'1'='1'</b> は必ず正しい条件です。
+    そのため「誰でもログインOK」という状態になります。
+  </p>
+</section>
+
+<section class="practice">
+  <h2>（デモ）ログインフォーム</h2>
+  <p>※ 学習用の例です。実運用では使ってはいけません。</p>
+  <form method="POST" action="#">
+    <input type="text" name="username" placeholder="User">
+    <input type="text" name="password" placeholder="Password">
+    <button type="submit">Login</button>
+  </form>
+</section>
+
+<section class="safe">
+  <h2>対策：プリペアドステートメント</h2>
+  <p>
+    <b>SQL文と入力値を完全に分ける</b> のが正解です。
+  </p>
+
+  <h3>❌ 危険な書き方</h3>
+  <pre>
+sql = "SELECT * FROM users WHERE username = '" + user + "'"
+cursor.execute(sql)
+  </pre>
+
+  <h3>⭕ 安全な書き方</h3>
+  <pre>
+sql = "SELECT * FROM users WHERE username = %s AND password = %s"
+cursor.execute(sql, (user, pwd))
+  </pre>
+
+  <p>
+    こうすると、入力は <b>ただのデータ</b> として扱われ、
+    SQLの意味を変えることができなくなります。
+  </p>
+</section>
+
+<section>
+  <h2>まとめ</h2>
+  <ul>
+    <li>SQLはデータベースへの命令</li>
+    <li>文字列連結はとても危険</li>
+    <li>必ずプリペアドステートメントを使う</li>
+  </ul>
+</section>
+
+</main>
+</body>
+</html>
+

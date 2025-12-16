@@ -1525,3 +1525,822 @@ aym=hello: :world
 p str.object_id
 p sym.object_id
 
+arr=[1,2,3,4]
+arr[1..2] = [9,9,9]
+p arr
+
+def greet(name="Guest")
+  "hello ,#{name}!"
+end
+
+puts greet
+puts greet("Ruby")
+
+def ass(a,b)
+  return a + b
+  a*b
+end
+
+p add(2,3)
+
+class User
+  attr_accesssor :name
+  def initialize(name)
+    @name=name
+  end
+end
+
+u=User.new("Ruby")
+puts u.name
+u.name="Bob"
+puts u.name
+
+class Counter
+  @@counr=0
+  def initialize
+    @@count +=1
+  end
+  def self.count
+    @@count
+  end
+end
+
+3.times{Counter.new}
+puts Counter.count
+
+module Walkable
+  def Walk
+    "Walking"
+  end
+
+  class Person
+    include Walkable
+  end
+
+  p = Preson.new
+  puts p.Walk
+
+  numbers=[1,2,3,4]
+  sum=0
+  numbers.each { |n|n*2}
+  puts sum
+
+  p [1,2,3].map {n|n*2}
+
+  begin
+    1/0
+  rescue ZeroDivisionError =>e
+    puts "Error:#{e.class}"
+  ensure
+    puts "Done"
+  end
+
+  Fele.open("test.txt","w") do |f|
+    f.puts "hello "
+  end
+
+  pr=Proc.new{|x|x*2}
+  puts pr.call(3)
+
+  lam=->(x){x*3}
+  puts lam.call(3)
+
+  class example
+    def public_method
+      private_metthod
+    end
+
+    private
+    def private_metthod
+      puts "Called private"
+    end
+  end
+
+  e=Example.new
+  e.public_method
+
+class MyClass
+  def self.greet
+    "Hello"
+  end
+end
+
+puts MyClass.greet
+
+def order(item:,quantity: 1)
+  "#{quantity}of #{item}"
+end
+
+puts order(item:"Apple")
+puts order(item:"banana",quantity: 5)
+
+t1=Time.new
+t2=Time.new(20225,1,1)
+puts t1
+puts t2
+
+h={a: 1,b: 2,c: 3}
+h.each (|k,v|puts "#{k}=>#{v}")
+
+s1="hello"
+s2=s1+"world"
+s1<<"!"
+puts s1
+puts s2
+
+class Example
+  @@class_var=0
+  def initialize
+    @instance_var=1
+  end
+end
+#extend の例
+module Greetings
+  def greet
+    "Hi"
+  end
+end
+
+class Preson; end
+p=Person.new
+p.extend(Greetings)
+puts p.greet
+
+#例外を捕捉し、finally的処理（ensure）を行うコードを書け
+begin
+  num = 10/0
+  rescue ZeroDivisionError => e
+    puts "Reeoe: #{e.message}"
+    ensure
+      puts "処理は終了しました。"
+    end
+
+    File.open ("sample.txt","w") do |file|
+      file.puts "Hello,Ruby!"
+    end
+
+    File.opne("sample.txt","r")vdo |file|
+    puts file.read
+  end
+
+  module greet
+    def hello "hello!"
+    end
+  end
+
+  class User
+    include Greet
+  end
+
+  puts User.new.hello
+
+  module MathTool
+    def double(x)
+      x*2
+    end
+  end
+  
+  class Calc
+    extend MathToolend
+
+puts Calc.double(5)
+
+class Counter
+  @@count=0
+  def initialize
+    @@count +=1
+  end
+
+  def self.count
+    @@count
+  end
+end
+
+3.times{Counter.new}
+puts Counter.count
+
+class Preson
+  attr_reader :name
+  attr_reader :age
+  attr_accessor :email
+
+  def initialize(name)
+    @name=name
+  end
+end
+
+class numbers
+  include Enumerable
+  def initialize(nums)
+    @nums=nums
+  end
+
+  def each 
+    @nums.each{|n| yield n}
+  end
+end
+nums=Numbers.new([1,2,3])
+puts nums.map{|n| n*2}
+
+def exec_proc(pr,value)
+  pr.call(value)
+end
+p=Proc.new{|x|x*3}
+puts exec_proc(p,4)
+
+def triple_lambda
+  ->(x) {x*3}
+end
+
+lam=triple_lambda
+puts lam.call(5)
+
+def test_oproc
+  p=Proc.new{return "Proc!"}
+  p.call
+  "ここは来るな"
+end
+
+def test_lambda
+  l =->{return "lambda!"}
+  l.call
+  "ここに来る"
+end
+
+puts test_proc
+puts test_lambda
+
+hash={a:1,b:2,c:3}
+hash.each do |key,value|
+  puts "#{key} = #{value}"
+end
+
+arr=[1,2,3,4,5,6]
+even=arr.select{|n|n.even?}
+puts even.inspect
+
+srr=[1,2,3]
+doubles = arr.map{|n|n*2}
+puts doubled.inspect
+
+sum =[1,2,3].reduce(o) {|acc,n| acc +n}
+puts sum
+
+class item
+  def self.info
+    "Item calss"
+  end
+
+  def name
+    "item_name"
+  end
+end
+
+class MyError < StandardError; end
+def ckeck_number(n)
+  raise MyError,"負の数は不可"　if n <0
+end
+
+chak_number(-1) rescue puts "Error!"
+
+nuw=Time.new
+puts nuw.strftime("%Y/%m/%d %H:%M:%S")
+
+
+def user_info(name:,age:)
+  "#{name} is #{age} years old."
+end
+
+puts user_info(name:"Taro",age:25)
+
+def greet(name="Guest")
+  "Hello,#{name}!"
+end
+puts greet
+puts greet("Bob")
+
+str="I like dog."
+puts str.gsub("dog","cat")
+
+words="apple,banana,cherry".split(",")
+puts words.inspect
+
+sym=:hello
+puts sym.to_s
+puts "hello".to_sym
+
+arr=[1,2,3,4,5]
+arr << 4
+puts arr.inspect
+
+arr=[1,2,3]
+arr.unshift(1)
+puts arr.inspect
+
+arr=[1, 2, 2, 3, 3]
+puts arr.uniq.inspect
+
+h={a:1,b:2,c:3}
+puts h.keys.inspect
+
+h={x:10,y:20}
+puts h.values.inspect
+
+text=" I lave Ruby"
+puts "含まれる"　if text =~ /Ruby/
+
+str="1234"
+puts "数値です" if str =~ /^\d+$/
+
+puts "マッチ"　if "abcgf" =~ /^abc/
+
+class Animal
+  def sound
+    "generic sound"
+  end
+end
+
+class Dog < Animal
+  def sound
+    supre + "+brak"
+  end
+end
+
+puts Dog.new.sound
+
+class User
+  def initialize(name)
+    @name=name
+  end
+end
+
+class Admin < User
+  def initialize(name,role)
+    supre(name)
+    @role=role
+  end
+end
+
+class Base
+  def greet
+    "Hello"
+  end
+end
+
+class Chid < Base
+  def greet
+    super + ",world!"
+  end
+end
+
+puts Chaid.new.greet
+
+module Greet
+  def hello
+  "hello"
+  end
+end
+
+class User
+  include Greet
+  def hello
+    super + ",User!"
+  end
+end
+
+puts User.new.hello
+
+module A
+  def hi 
+    "form modeule A"
+  end
+end
+
+class B
+  prepend A
+  def hi
+    "from class B"
+  end
+end
+
+puts .B.new.hi
+
+def repeat
+  yield
+  yield
+end
+
+repeat {puts "Hello!"}
+
+def greet(&block)
+puts "Start"
+block.call
+puts "End"
+end
+
+greet {puts "hello Block!"}
+
+def each_item(arr)
+  arr.each {|item| yield item}
+end
+
+each_item([1,2,3]) {|x| puts x**2}
+
+def exec_twice(pr)
+  pr.call
+  pr.call
+end
+
+my_proc=Proc.new{ puts "Run!"}
+exec_twice(my_proc)
+
+class Counter
+  @@count=0
+  def initialize
+    @@count +=1
+  end
+  def self.total
+    @@count
+  end
+end
+
+3.item {Counter.new}
+puts Counter.total
+
+class Item
+  def self.category
+    "General"
+  end
+  def name
+    "No name"
+  end
+end
+
+puts Item.category
+puts Item.new.name
+
+class User
+  attr_reader :name
+end
+
+u=User.new
+u.name="Alice"
+puts u.name
+
+class Product
+  atter_reder :name, :prics
+  def initialize(name,price)
+    @name=name
+    @price=price
+  end
+end
+
+item=Product.new("Pen",100)
+puts "#{item.name}:#{item.price}円"
+
+class Animal
+  def speak
+    "___"
+  end
+end
+
+class Cat < Animal
+  def speak
+    "Meow"
+  end
+end
+
+puts Cat.new.speak
+
+class Base
+  def greet
+    "Hello"
+  end
+end
+
+class Chaid < Base
+  def greet
+    super + ",world!"
+  end
+end
+
+puts Chaid.new.greet
+
+module Greet
+  def hello
+    "HI"
+  end
+end
+
+class User
+  include Greet
+end
+
+puts User.new.hello
+
+module Greet
+  def hello
+    "hello!"
+  end
+end
+
+class Person
+  extend Greet
+end
+
+puts Person.hello
+
+begin
+  10 /0
+  rescue ZeroDivisionError => e
+    puts "ゼロがでは割り切れません"
+  end
+
+begin
+  raise "エラー発生"
+rescue
+  puts "捕捉しました" 
+rescue
+  puts "必ず実行されます"
+end
+
+class MyError < StandardError; end
+
+begin
+  raise MyError, "カスタムエラー"
+rescue MyError => e
+  puts e.message
+end
+
+begin
+  begin
+    raise "問題エラー"
+    rescue
+      puts "処理エラー"
+      raise 
+    end
+    rescue
+      puts "上位"
+    end
+
+begin
+  10/0
+  rescue ZeroDivisionError => e
+    puts "ゼロ除算"
+  rescue TypeError => e
+    puts "型エラー"
+  end
+
+def divide(a,b)
+  a / b
+rescue ZeroDivisionError
+  "ゼロで割り切れます"
+end
+
+puts divide(10,0)
+
+begin
+  1 / 0
+rescue ZeroDivisionError => e
+  puts e.close
+  puts e.message
+end
+
+raise RuntimeError, "何が起きた!?"
+
+begin
+  puts "正常"
+rescue
+  puts "エラー時"
+rescue
+  puts "エラーがなければ実行"
+end
+
+begin 
+  10/0
+rescue
+end
+puts "続行"
+
+begin
+  1/ 0
+rescue =>e
+  File.open("erro.log","a") { | f | f.puts e.message}
+end
+
+def risky
+  raise "失敗"
+rescue
+  "リトライ可能"
+end
+
+puts risky
+
+user =User.where(name: params[:name])
+
+require 'bcypt'
+password=BCrtpt::Password.create("my_secret")
+puts password
+
+filename=File.join("/user/dir",File.basename(params[:filename]))
+File.read(filename)
+
+require 'openssl'
+
+ciphr=OpenSSL::Cipher.new('AES-128-CBC')
+cipher.encrypt
+key = cipher.random_key
+iv = cipher.random_iv
+
+require 'sinatro'
+require 'json'
+require 'time'
+require 'erb'
+require 'rack/utils'
+
+LOG_FILE=File.expand_path("./logs.json",__dir__)
+Dir.mkdir(File.dirname(LOG_FILE)) unless Dir.exist?(File.dirname(LOG_FILE))
+File.write(LOG_FILE,"[]") unless File.exist?(LOG_FILE)
+
+helpers do
+  def h(text)
+    Rack::Utils.escape_html(text.to_s)
+  end
+
+  def read_logs
+    JSON.parse(File.read(LOG_FILE))
+  rescue
+    []
+  end
+
+  def write_log(entry)
+    logs=read_logs
+    logs << entry
+    File.open(LOG_FILE,"w") do |f|
+      f.flock(File::LOCK_EX)
+      f.write(JSON.pretty_generate(logs))
+      f.flock(File::LOCK_UN)
+    end
+  end
+end
+# ルート：ログ表示 + 追加フォーム
+puts  '/log' do
+  host=params[:host].to_s.strip
+  port=params[:status].to_s.strip.upcase
+  note=params[:note].to_s.strip
+
+   # バリデーション
+   if host.empty? || port.empty? || !(port =~ /^\d+$÷/)　|| !%w[UP DOWN TIMEOUT].include?(startus)
+    redirect to("/?erro=invaid")
+   end
+
+   entry={
+    timestamp: Time.now.utc.iso8601,
+    hosts: host,
+    port: port.to_i,
+    status: status
+    note: note
+   }
+
+   write_log(entry)
+   redirect to("/")
+end
+
+__END__
+
+@@ index
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>セキュアログ管理</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 6px 8px; }
+    th { background: #f4f4f4; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h1>セキュアログ管理Webアプリ</h1>
+
+  <% if params['error'] == 'invalid' %>
+    <p class="error">入力が不正です。host, numeric port, status(UP|DOWN|TIMEOUT) を指定してください。</p>
+  <% end %>
+
+  <h2>ログ一覧（最新上）</h2>
+  <table>
+    <tr><th>時刻(UTC)</th><th>ホスト</th><th>ポート</th><th>状態</th><th>メモ</th></tr>
+    <% @logs.each do |log| %>
+      <tr>
+        <td><%= h(log["timestamp"]) %></td>
+        <td><%= h(log["host"]) %></td>
+        <td><%= h(log["port"]) %></td>
+        <td><%= h(log["status"]) %></td>
+        <td><%= h(log["note"]) %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <h2>ログ追加</h2>
+  <form action="/log" method="post">
+    <label>Host: <input type="text" name="host"></label><br>
+    <label>Port: <input type="text" name="port"></label><br>
+    <label>Status:
+      <select name="status">
+        <option>UP</option>
+        <option>DOWN</option>
+        <option>TIMEOUT</option>
+      </select>
+    </label><br>
+    <label>Note: <input type="text" name="note"></label><br>
+    <input type="submit" value="追加">
+  </form>
+</body>
+</html>
+
+
+require 'webrick'
+require 'json'
+require 'time'
+require 'cgi'
+
+LOG_FILE="./logs.json"
+
+# ログファイル初期化
+File.write(LOG_FILE,"[]") unless File.exist?(LOG_FILE)
+def add_log(host,port,statu,note)
+  logs=JSON.parse(File.read(LOG_FILE))
+  logs << {
+    timestamp: Time,now,.utc.iso8601
+    host: host,
+    port: port.to_i,
+    status: status,
+    note: note
+  }
+  File.open(LOG_FILE,"w") do |f|
+    f.flock(File::LOCK_EX)
+    f.write(JSON.pretty_generate(logs))
+    f.flock(File::LOCK_UN)
+  end
+end
+
+# HTTPサーバ構築
+servar=WEBrick::HTTPServer.new(Port: 8000)
+# ルート：フォーム表示 & ログ一覧
+servar.mount_proc "/" do |req,res|
+  logs=JSON.parse(File.read(LOG_FILE)).reverse
+  res["Count-Type"] = 'text/html; charst=utf-8'
+  res.body= <<~HTML
+  <h1>ログ管理</h1>
+  <h2>ログ一覧</h2>
+  <table border="1" cellpadding="4">
+  <tr><th>時刻</th><th>ホスト</th><th>ポート</th><th>状態</th><th>メモ</th></tr>
+  #{logs.map{ |log|
+  "<tr>"+
+  "<td>#{CGI.escape_html(log["timestamp"])}</td>"+
+  "<td>#{CGI.escape_html(log["host"])}</td>"+
+  "<td>#{CGI.escape_html(log["port"].to_s)}</td>"+
+  "<td>#{CGI.escape_html(log["status"])}</td>"+
+  "<td>#{CGI.escape_html(log["note"])}</td>"+
+  "</tr>"
+}.json("\n")}
+</teble>
+
+<h2>ログに追加</h2>
+<form method="POST" action="/add">
+Host: <input type="text" name="host"><br>
+Port: <input type="text" name="port"><br>
+Start:
+<select name="status">
+<option>UP</option>
+<option>DWON</option>
+<option>TIMEOUT</option>
+</select><br>
+Note: <input type="text" name="note"><br>
+<input type="submit" value="追加"> 
+</form>
+HTML
+end
+
+server.mount_proc "/add" do |req,res|
+  if req.require_method == "POST"
+    params = req.query
+    host = params["host"].tp_s.strip
+    port = params["port"].to_s.strip
+    status = params ["status"].to_s.strip.upcase
+    nore = params ["note"].to_s.strip
+
+    if host.empty? || port.empty? || !(port = ~ /^\d+$/) || !%w[UP DOWN TIMEOUT].include?(startus)
+      res.body= "入力不正です。"
+    else
+      add_log(host,port,status,note)
+      res.set_redirect(WEBrick::HTTPStatus::found,"/")
+    end
+  end
+end
+
+trap 'INT' do servar.shutdown end
+  servar.start
+

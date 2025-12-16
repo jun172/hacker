@@ -1,6 +1,0 @@
-{
-  "error": "analysis failed: 'EDecimal' object cannot be interpreted as an integer",
-  "trace": "Traceback (most recent call last):\n  File \"/Users/junnakai/python/app1.py\", line 221, in analyze_task\n    summary = analyze_pcap_stream(filepath, sample_limit=sample_limit, progress_callback=progress_cb)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/junnakai/python/app1.py\", line 122, in analyze_pcap_stream\n    summary[\"first_ts\"] = datetime.datetime.utcfromtimestamp(ts).isoformat() + \"Z\"\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: 'EDecimal' object cannot be interpreted as an integer\n",
-  "charts": {},
-  "duration_sec": 0.02
-}

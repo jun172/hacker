@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Dark Market</title>
+<style>
+body {
+  background:#000;
+  color:#0f0;
+  font-family: monospace;
+  margin:0; padding:0;
+  overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(180deg,#010,#000);
+  padding:10px;
+  text-align:center;
+  font-size:24px;
+  text-shadow:0 0 10px #0f0;
+}
+
+/* CASINO NEON CARDS */
+.item-card{
+  border:2px solid #0f0;
+  margin:10px;
+  padding:10px;
+  width:180px;
+  display:inline-block;
+  background:rgba(0,30,0,0.7);
+  box-shadow:0 0 10px #0f0;
+  transition:0.2s;
+}
+.item-card:hover{
+  box-shadow:0 0 20px #0f0,0 0 40px #0f0;
+}
+
+/* BUTTON */
+button{
+  background:#030;
+  color:#0f0;
+  border:1px solid #0f0;
+  padding:5px;
+  cursor:pointer;
+}
+button:hover{
+  background:#060;
+}
+
+/* CHART */
+#chart{
+  width:100%;
+  height:150px;
+  background:#010;
+  border-top:2px solid #0f0;
+  position:relative;
+  overflow:hidden;
+}
+
+/* BLOCKCHAIN BAR */
+.block{
+  height:10px;
+  width:10px;
+  background:#0f0;
+  position:absolute;
+  top:20px;
+  animation:blockchain 6s linear infinite;
+}
+@keyframes blockchain{
+  0%{left:-20px;}
+  100%{left:100%;}
+}
+
+/* MAP */
+#map{
+  margin-top:10px;
+  height:150px;
+  background:url('https://upload.wikimedia.org/wikipedia/commons/9/97/Silk_Road_Travel.png') center/cover;
+  opacity:0.3;
+}
+
+/* CHAT/LOG */
+#log{
+  height:150px;
+  overflow-y:auto;
+  border-top:2px solid #0f0;
+  padding:5px;
+  background:#000;
+}
+
+/* RIGHT CLICK BLOCKER */
+#alert{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#200;
+  color:#fff;
+  padding:10px;
+  display:none;
+  border:2px solid red;
+}
+</style>
+</head>
+<body>
+
+<header>⚠ Dark Market (Educational Simulation)</header>
+
+<!-- RANDOM CHART -->
+<div id="chart"></div>
+
+<!-- BLOCKCHAIN -->
+<div class="block"></div>
+<div class="block" style="animation-delay:1s; top:50px"></div>
+<div class="block" style="animation-delay:2s; top:80px"></div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<!-- PRODUCTS -->
+<div id="items"></div>
+
+<!-- LOG -->
+<div id="log"></div>
+
+<div id="alert">⚠ 警告：禁止操作</div>
+
+<audio id="clickSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
+<audio id="warnSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+
+<script>
+// =========================
+// 120+ FAKE PRODUCTS
+// =========================
+const products = [];
+const names = [
+"Shadow Dice","Phantom Coin","Ghost Stock","Night Gem","Black Lotus",
+"Encrypted Spice","Dark Silk","Cursed Key","Quantum Dust","Inferno Chip",
+"Meta Blade","Silent Memory","Zero Protocol","Carbon Token","Ghost Pepper",
+"Eclipse Ring","Obsidian Gold","Mosaic Crystal","Lunar Salt","Void Stone"
+];
+
+// generate 120 products
+for(let i=0;i<120;i++){
+  products.push({
+    name: names[i % names.length] + " #" + (i+1),
+    price: Math.floor(Math.random()*500)+10,
+    stock: Math.floor(Math.random()*10)+1,
+    sold: 0
+  });
+}
+
+// =========================
+// RENDER ITEMS
+// =========================
+function renderItems(){
+  const box = document.getElementById("items");
+  box.innerHTML = "";
+  products.forEach((p,i)=>{
+    box.innerHTML += `
+      <div class="item-card">
+        <b>${p.name}</b><br>
+        💴 ¥${p.price}<br>
+        残り: ${p.stock}<br>
+        <button onclick="buy(${i})">購入</button>
+      </div>
+    `;
+  });
+}
+renderItems();
+
+// =========================
+// BUY
+// =========================
+function buy(i){
+  const p = products[i];
+  if(p.stock<=0){
+    log("❌ 在庫切れ: " + p.name);
+    warn();
+    return;
+  }
+  p.stock--;
+  p.sold++;
+  click();
+  log("🟢 購入: " + p.name + " ¥" + p.price);
+  renderItems();
+}
+
+// =========================
+// LOG
+// =========================
+function log(msg){
+  const box = document.getElementById("log");
+  box.innerHTML += msg + "<br>";
+  box.scrollTop = box.scrollHeight;
+}
+
+// =========================
+// SOUNDS
+// =========================
+function click(){
+  document.getElementById("clickSound").play();
+}
+function warn(){
+  document.getElementById("warnSound").play();
+}
+
+// =========================
+// RIGHT CLICK BLOCKER
+// =========================
+document.addEventListener("contextmenu", e=>{
+  e.preventDefault();
+  warn();
+  const a = document.getElementById("alert");
+  a.style.display="block";
+  setTimeout(()=>a.style.display="none",800);
+});
+
+// =========================
+// RANDOM CHART
+// =========================
+const chart = document.getElementById("chart");
+setInterval(()=>{
+  let x = document.createElement("div");
+  x.style.position="absolute";
+  x.style.left="100%";
+  x.style.bottom=Math.random()*100+"%";
+  x.style.width="3px";
+  x.style.height="3px";
+  x.style.background="#0f0";
+  x.style.animation="move 3s linear forwards";
+  x.style.boxShadow="0 0 5px #0f0";
+  chart.appendChild(x);
+  setTimeout(()=>x.remove(),3000);
+},50);
+
+</script>
+
+<style>
+@keyframes move{
+  0%{left:100%;}
+  100%{left:-10px;}
+}
+</style>
+
+</body>
+</html>

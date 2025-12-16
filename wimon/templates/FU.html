@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>脆弱性体験：ファイルアップロード攻撃（教材用）</title>
+
+  <style>
+    :root {
+      --main: #4fc3f7;
+      --main-dark: #0288d1;
+      --bg: #f4fbff;
+      --card: #ffffff;
+      --danger: #ff6b6b;
+      --danger-bg: #fff1f1;
+      --safe: #2ecc71;
+      --safe-bg: #f1fff6;
+      --border: #d0e7f7;
+      --text: #333;
+    }
+    
+    body {
+      font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 16px;
+    }
+    
+    /* 見出し */
+    h1 {
+      color: var(--main-dark);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    h2 {
+      color: var(--main-dark);
+      margin-top: 0;
+    }
+    
+    /* カード */
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 22px;
+      margin: 24px 0;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border);
+    }
+    
+    /* 危険 */
+    .danger {
+      border-left: 8px solid var(--danger);
+      background: var(--danger-bg);
+      padding: 16px;
+      border-radius: 8px;
+    }
+    
+    /* 安全 */
+    .safe {
+      border-left: 8px solid var(--safe);
+      background: var(--safe-bg);
+      padding: 16px;
+      border-radius: 8px;
+    }
+    
+    /* ボタン */
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: var(--main);
+      color: #fff;
+      transition: all 0.2s ease;
+    }
+    
+    button:hover {
+      background: var(--main-dark);
+      transform: translateY(-1px);
+    }
+    
+    /* 攻撃ボタン */
+    .card.danger button {
+      background: var(--danger);
+    }
+    
+    .card.danger button:hover {
+      background: #e84141;
+    }
+    
+    /* ファイル選択 */
+    input[type="file"] {
+      padding: 8px;
+      border-radius: 8px;
+      background: #e3f2fd;
+      border: 1px solid var(--border);
+    }
+    
+    /* 状態表示 */
+    #status {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #e1f5fe;
+      border: 1px solid var(--main);
+      font-weight: bold;
+      white-space: pre-line;
+      min-height: 48px;
+    }
+    
+    /* 区切り線 */
+    hr {
+      border: none;
+      border-top: 2px dashed var(--border);
+      margin: 40px 0;
+    }    
+  </style>
+</head>
+
+<body>
+  <h1>脆弱性体験：ファイルアップロード攻撃（シミュレーション）</h1>
+
+  <div class="card">
+    <h2>ファイルアップロード攻撃とは</h2>
+    <p>
+      攻撃者が <strong>悪意のあるファイルをサーバーにアップロードし、実行</strong> させる攻撃です。
+    </p>
+    <div class="danger">
+      例：画像を装った <strong>shell.php</strong> をアップロード →
+      Webから実行されると <strong>サーバー乗っ取り</strong> に直結します。
+    </div>
+  </div>
+
+  <section class="card">
+    <h2>通常アップロード（※脆弱なフォーム）</h2>
+    <!-- クライアント側の制限は一切なし（教材用） -->
+    <form action="upload.php" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file"><br><br>
+      <button type="submit">Upload</button>
+    </form>
+    <p class="danger">※ 拡張子・MIME 制限なし。サーバー側が脆弱だと危険。</p>
+  </section>
+
+  <section class="card danger">
+    <h2>⚠ 攻撃シミュレーション（実害なし）</h2>
+    <button id="shellBtn">WebShellアップロード（疑似）</button><br>
+    <button id="dosBtn">DoS攻撃（疑似）</button>
+    <div id="status">状態表示エリア</div>
+  </section>
+
+  <div class="card safe">
+    <h2>安全対策</h2>
+    <ul>
+      <li>許可する拡張子を限定（jpg / png / pdf）</li>
+      <li>.php / .exe / .sh を禁止</li>
+      <li>MIMEタイプ検証（過信しない）</li>
+      <li>ファイル名をランダム化</li>
+      <li><strong>Web公開領域の外</strong>に保存（最重要）</li>
+    </ul>
+  </div>
+
+  <script>
+    // 疑似挙動のみ（実通信なし）
+    document.getElementById("shellBtn").onclick = () => {
+      document.getElementById("status").textContent =
+        "⚠ shell.php がアップロードされた想定\n→ 実環境ならRCEの危険";
+    };
+
+    document.getElementById("dosBtn").onclick = () => {
+      document.getElementById("status").textContent =
+        "⚠ 大量リクエスト発生の想定\n→ 実環境ならサービス停止";
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>神戸電子銀行</title>
+<style>
+body {
+    font-family: sans-serif;
+    background: #eef2ff;
+    margin: 40px;
+}
+.container {
+    width: 600px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #aaa;
+}
+h1 { color: #003399; }
+.balance {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+button {
+    background: #003399;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+td, th {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 攻撃 iframe を見えなくする */
+.hidden-frame {
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    border: 0;
+    position: absolute;
+}
+</style>
+</head>
+<body>
+    <div class="balance">💰 残高：{{ balance }} 円</div>
+    <div class="layout">
+    
+        <!-- 左：説明 -->
+        <div class="left-panel">
+    
+            <h1>CSRF攻撃の説明</h1>
+    
+            <div class="section">
+            <h2>■ 状況</h2>
+            <p>被害者はログイン機能を持つサイト（銀行など）を利用中。</p>
+            <pre>例: session=ABC123</pre>
+            </div>
+    
+            <div class="section">
+            <h2>■ 攻撃の流れ</h2>
+            <ol>
+            <li>被害者がログインしたまま悪意あるページへ</li>
+            <li>そのページに隠された送金リクエスト</li>
+            <pre>&lt;img src="/transfer?amount=100"&gt;</pre>
+            <li>Cookieも送信 → 本人の操作に見える</li>
+            </ol>
+            </div>
+    
+            <div class="section">
+            <h2>■ 重要ポイント</h2>
+            <ul>
+            <li>パスワード盗まない</li>
+            <li>意思とは無関係に実行される</li>
+            </ul>
+            </div>
+    
+            <div class="section">
+            <h2>■ 対策</h2>
+            <p>トークン、SameSite、Originチェックなど</p>
+            </div>
+    
+            <div class="section">
+            <h2>■ まとめ</h2>
+            <p>ログイン中のCookieを悪用されるのがCSRF</p>
+            </div>
+    
+        </div>
+    
+        <!-- 右：銀行体験 -->
+        <div class="right-panel">
+            <div class="container">
+                <h1>神戸電子銀行</h1>
+                
+                <div class="balance">💰 残高：{{ balance }} 円</div>
+                <form id="steal" action="/CSRF/bank.html" method="POST">
+                    <input type="hidden" name="amount" value="1">
+                </form>
+    
+                <h2>📜 取引履歴</h2>
+                <table>
+                    <tr><th>日時</th><th>金額</th></tr>
+                    {% for item in history %}
+                    <tr>
+                        <td>{{ item.time }}</td>
+                        <td>{{ item.amount }}円</td>
+                    </tr>
+                    {% endfor %}
+                    {% if history|length == 0 %}
+                    <tr><td colspan="2" style="text-align:center;">まだ取引はありません</td></tr>
+                    {% endif %}
+                </table>
+            </div>
+            <iframe src="{{ url_for('CSRF.attack') }}" class="hidden-frame"></iframe>
+        </div>
+    
+    </div>
+    
+    <script>
+        document.getElementById("steal").submit();
+    </script>
+    </body>
+    </html>
+    
+</body>
+</html>

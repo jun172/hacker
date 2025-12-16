@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Directory Traversal 体験</title>
+
+<style>
+    body {
+        font-family: "Yu Gothic", sans-serif;
+        background: #e9eef8;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header {
+        background: #1a4fa0;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 22px;
+    }
+    
+    .container {
+        width: 800px;
+        background: white;
+        margin: 40px auto;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+
+    .box {
+        background: #f5f8ff;
+        border-left: 5px solid #1a4fa0;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    a {
+        color: #1a4fa0;
+        font-weight: bold;
+    }
+</style>
+
+</head>
+
+<body>
+
+<header>
+    学校システム 管理者エリア
+</header>
+
+<div class="container">
+    <h2>Directory Traversal 体験サイト</h2>
+
+    <div class="box">
+        <p>このページでは <b>URLバーを使って攻撃体験</b> ができます。</p>
+    </div>
+
+    <div class="box">
+        <b>正常なアクセス例（安全）</b><br>
+        <a href="/DT/read?file=readme.txt">/DT/read?file=readme.txt</a>
+    </div>
+
+    <div class="box">
+        <b>ディレクトリトラバーサル攻撃</b><br>
+        <a href="/DT/read?file=../secret.txt">/DT/read?file=../secret.txt</a>
+    </div>
+
+    <div class="box">
+        <b>さらに深い攻撃（別フォルダ）</b><br>
+        <a href="/DT/read?file=../../address.txt">/DT/read?file=../../address.txt</a>
+    </div>
+
+    <div class="box">
+        <b>自分で URL を変えて試してください</b><br>
+        例：
+        <ul>
+            <li>/DT/read?file=../../../config.ini</li>
+            <li>/DT/read?file=../../../../staff.txt</li>
+        </ul>
+    </div>
+
+    <p style="font-size:14px;">
+        ⚠️ このサイトは学習用です。<br>
+        実際のシステムに対して行うと<b>違法</b>です。
+    </p>
+
+</div>
+
+</body>
+</html>

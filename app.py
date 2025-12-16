@@ -8,8 +8,8 @@ from urllib.parse import urlparse
 from simple_proxy_hashed import * # あなたの既存モジュール
 
 # ---------- 設定 ----------
-TARGETS = ["http://192.168.100.83"]
-NMAP_ARGS = "-sT -p- --min-rate 1000 --open"
+TARGETS = ["/Users/junnakai/Downloads/jun.pcapng"]
+NMAP_ARGS = "-sT -p- --min-rate 80--open"
 BASELINE_DIR = "./baseline"
 HISTORY_DIR = "./history"
 # --------------------------
