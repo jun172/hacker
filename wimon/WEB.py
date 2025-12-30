@@ -12,7 +12,7 @@ from DARK import DARK
 
 
 app = Flask(__name__)
-app.secret_key = 'jun1026.com'
+app.secret_key = 
 
 @app.route('/')
 def home():

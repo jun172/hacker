@@ -1,0 +1,24 @@
+h1 {
+    color: red;
+}
+
+p {
+    padding: 16px;
+}
+
+.title{
+    text-transform: uppercase;
+}
+
+#main{
+    background-color: blue;
+}
+
+a {
+    color: green;
+}
+
+.highlight{
+    color: yellow;
+}
+
