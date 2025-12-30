@@ -32,16 +32,28 @@
     .box {
         background: #f5f8ff;
         border-left: 5px solid #1a4fa0;
-        padding: 10px;
+        padding: 12px;
         margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    .box-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #1a4fa0;
     }
 
     a {
         color: #1a4fa0;
         font-weight: bold;
     }
-</style>
 
+    code {
+        background: #eee;
+        padding: 2px 5px;
+        border-radius: 4px;
+    }
+</style>
 </head>
 
 <body>
@@ -53,35 +65,75 @@
 <div class="container">
     <h2>Directory Traversal 体験サイト</h2>
 
+    <!-- 説明 -->
     <div class="box">
-        <p>このページでは <b>URLバーを使って攻撃体験</b> ができます。</p>
+        <div class="box-title">■ 説明（Directory Traversal とは）</div>
+        Directory Traversal（ディレクトリトラバーサル）とは、
+        ファイル名を指定する処理に対して <code>../</code> を含むパスを送信し、
+        <b>本来アクセスできないファイルを読み取ってしまう脆弱性</b>です。<br>
+        入力値の検証不足が原因で発生します。
     </div>
 
+    <!-- 使い方 -->
     <div class="box">
-        <b>正常なアクセス例（安全）</b><br>
+        <div class="box-title">■ 使い方（攻撃体験方法）</div>
+        <ol>
+            <li>まず「正常なアクセス例」をクリックします</li>
+            <li>次に「ディレクトリトラバーサル攻撃」をクリックします</li>
+            <li>URLバーの <code>file=</code> の値を変更してみてください</li>
+        </ol>
+        <small>※ <code>../</code> を増やすと、より上の階層へ移動できます</small>
+    </div>
+
+    <!-- 攻撃例 -->
+    <div class="box">
+        <div class="box-title">■ 正常なアクセス例（安全）</div>
         <a href="/DT/read?file=readme.txt">/DT/read?file=readme.txt</a>
     </div>
 
     <div class="box">
-        <b>ディレクトリトラバーサル攻撃</b><br>
+        <div class="box-title">■ ディレクトリトラバーサル攻撃</div>
         <a href="/DT/read?file=../secret.txt">/DT/read?file=../secret.txt</a>
     </div>
 
     <div class="box">
-        <b>さらに深い攻撃（別フォルダ）</b><br>
+        <div class="box-title">■ さらに深い攻撃（別フォルダ）</div>
         <a href="/DT/read?file=../../address.txt">/DT/read?file=../../address.txt</a>
     </div>
 
     <div class="box">
-        <b>自分で URL を変えて試してください</b><br>
-        例：
+        <div class="box-title">■ 自分で URL を変えて試してください</div>
         <ul>
             <li>/DT/read?file=../../../config.ini</li>
             <li>/DT/read?file=../../../../staff.txt</li>
         </ul>
     </div>
 
-    <p style="font-size:14px;">
+    <!-- なぜ起きる -->
+    <div class="box">
+        <div class="box-title">■ なぜ攻撃が成功するのか</div>
+        サーバー側で以下のような実装をしている場合、
+        Directory Traversal 攻撃が成立します。
+        <ul>
+            <li>ファイル名をそのままパスに連結している</li>
+            <li><code>../</code> をチェックしていない</li>
+            <li>アクセス可能なディレクトリ制限がない</li>
+        </ul>
+    </div>
+
+    <!-- 対策 -->
+    <div class="box">
+        <div class="box-title">■ 対策方法</div>
+        実際のシステムでは、以下の対策が必要です。
+        <ul>
+            <li>許可したファイル名のみ扱う（ホワイトリスト）</li>
+            <li><code>../</code> や <code>/</code> を含む入力を拒否</li>
+            <li>実ファイルパスを直接指定させない</li>
+            <li>Web公開ディレクトリ外のファイルを読ませない</li>
+        </ul>
+    </div>
+
+    <p style="font-size:14px; color:red;">
         ⚠️ このサイトは学習用です。<br>
         実際のシステムに対して行うと<b>違法</b>です。
     </p>

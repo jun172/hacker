@@ -2,148 +2,214 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>神戸電子銀行 - ログイン</title>
+<title>神戸電子銀行 - CSRF学習デモ</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    body {
-        font-family: 'Roboto', sans-serif;
-        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    min-height: 100vh;
+    padding: 40px 0;
+}
 
-    .container {
-        width: 420px;
-        background: #fff;
-        padding: 40px 30px;
-        border-radius: 16px;
-        box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-        position: relative;
-        overflow: hidden;
-    }
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
 
-    .container::before {
-        content: "";
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(102,126,234,0.2), transparent 70%);
-        top: -50%;
-        left: -50%;
-        transform: rotate(30deg);
-        pointer-events: none;
-    }
+/* ===== 共通カード ===== */
+.card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
 
-    .title {
-        text-align: center;
-        font-size: 32px;
-        font-weight: 700;
-        color: #333;
-        margin-bottom: 8px;
-    }
+/* ===== CSRF説明 ===== */
+.csrf-section h2 {
+    color: #2575fc;
+    margin-bottom: 10px;
+}
 
-    .subtitle {
-        text-align: center;
-        font-size: 16px;
-        color: #666;
-        margin-bottom: 30px;
-    }
+.csrf-section h3 {
+    margin-top: 20px;
+}
 
-    label {
-        display: block;
-        font-weight: 500;
-        margin-bottom: 6px;
-        color: #444;
-    }
+.csrf-section ul,
+.csrf-section ol {
+    margin-left: 20px;
+    margin-top: 6px;
+}
 
-    input {
-        width: 100%;
-        padding: 14px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        font-size: 15px;
-        transition: all 0.3s ease;
-    }
+.csrf-warning {
+    margin-top: 15px;
+    color: red;
+    font-weight: bold;
+}
 
-    input:focus {
-        border-color: #2575fc;
-        box-shadow: 0 0 8px rgba(37,117,252,0.3);
-        outline: none;
-    }
+/* ===== ログイン ===== */
+.container {
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+}
 
-    .login-btn {
-        width: 100%;
-        padding: 16px;
-        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-        color: #fff;
-        font-size: 18px;
-        font-weight: 500;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+.logo {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    background: #2575fc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 28px;
+}
 
-    .login-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(37,117,252,0.3);
-    }
+.title {
+    font-size: 28px;
+    font-weight: 700;
+}
 
-    .notice {
-        font-size: 12px;
-        color: #999;
-        text-align: center;
-        margin-top: 20px;
-    }
+.subtitle {
+    color: #666;
+    margin-bottom: 25px;
+}
 
-    .logo {
-        display: block;
-        width: 60px;
-        height: 60px;
-        margin: 0 auto 15px auto;
-        background: #2575fc;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        font-weight: bold;
-        font-size: 28px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
 
+input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.notice {
+    font-size: 12px;
+    color: #999;
+    margin-top: 18px;
+}
+
+/* ===== 攻撃コード ===== */
+pre {
+    background: #111;
+    color: #0f0;
+    padding: 14px;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin-top: 10px;
+}
 </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="logo">神</div>
-    <h1 class="title">神戸電子銀行</h1>
-    <h2 class="subtitle">オンラインバンキング ログイン</h2>
+<main>
 
-    <form action="/CSRF/bank.html" method="POST">
-        <label>ユーザーID</label>
-        <input type="text" name="user_id" placeholder="ユーザーID">
+    <!-- ① CSRFの説明 -->
+    <section class="card csrf-section">
+        <h2>CSRF（クロスサイト・リクエスト・フォージェリ）とは</h2>
+        <p>
+            CSRFとは、ログイン中のユーザーを悪用し、
+            本人の意思とは無関係に不正なリクエストを送信させる攻撃です。
+        </p>
 
-        <label>パスワード</label>
-        <input type="password" name="password" placeholder="パスワード">
+        <h3>攻撃の特徴</h3>
+        <ul>
+            <li>ユーザーは正規サイトにログイン済み</li>
+            <li>Cookieが自動送信される</li>
+            <li>サーバーは正規操作と誤認する</li>
+        </ul>
 
-        <button type="submit" class="login-btn">ログイン</button>
-    </form>
+        <h3>攻撃の流れ</h3>
+        <ol>
+            <li>銀行サイトにログイン</li>
+            <li>攻撃者の罠サイトを開く</li>
+            <li>不正な処理が実行される</li>
+        </ol>
 
-    <p class="notice">
-        ※これは教育用デモサイトです。実在の銀行ではありません。
-    </p>
-</div>
+        <p class="csrf-warning">
+            ⚠ 本ページはCSRFを理解するための教育用デモです
+        </p>
+    </section>
+
+    <!-- ② ログイン画面 -->
+    <section class="card container">
+        <div class="logo">神</div>
+        <h1 class="title">神戸電子銀行</h1>
+        <p class="subtitle">オンラインバンキング ログイン</p>
+
+        <form action="/CSRF/bank.html" method="POST">
+            <label>ユーザーID</label>
+            <input type="text" name="user_id">
+
+            <label>パスワード</label>
+            <input type="password" name="password">
+
+            <button class="login-btn">ログイン</button>
+        </form>
+
+        <p class="notice">
+            ※教育目的のデモサイトです。実在の銀行ではありません。
+        </p>
+    </section>
+
+    <!-- ③ 攻撃コードの説明 -->
+    <section class="card">
+        <h2>CSRF攻撃コードの例</h2>
+        <p>
+            以下のHTMLが攻撃者サイトに設置されると、
+            ページを開いただけでPOSTリクエストが送信されます。
+        </p>
+
+        <pre>
+&lt;form action="https://bank.example/login" method="POST"&gt;
+  &lt;input type="hidden" name="user_id" value="victim"&gt;
+  &lt;input type="hidden" name="password" value="attack"&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  document.forms[0].submit();
+&lt;/script&gt;
+        </pre>
+
+        <p>
+            ログイン中のユーザーのCookieが自動的に送信されるため、
+            サーバー側は攻撃を検知できません。
+        </p>
+    </section>
+
+</main>
 
 </body>
 </html>

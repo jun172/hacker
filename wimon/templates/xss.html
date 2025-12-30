@@ -35,9 +35,32 @@ header p {
 
 /* ===== メイン ===== */
 main {
-  max-width: 800px;
+  max-width: 900px;
   margin: 40px auto;
   padding: 0 20px;
+}
+
+/* ===== 説明ブロック ===== */
+.explain {
+  background: #020202;
+  border: 1px solid #00ff9c;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 20px rgba(0,255,156,0.25);
+}
+
+.explain h2 {
+  color: #ffca28;
+  margin-top: 0;
+}
+
+.explain ul {
+  padding-left: 20px;
+}
+
+.explain li {
+  margin-bottom: 8px;
 }
 
 /* ===== 情報ブロック ===== */
@@ -74,10 +97,6 @@ input {
   font-family: inherit;
 }
 
-input::placeholder {
-  color: #4dffb5;
-}
-
 button {
   background: #00ff9c;
   color: black;
@@ -103,15 +122,87 @@ button:hover {
   animation: alertGlow 1.5s infinite alternate;
 }
 
-/* ===== 危険アニメーション ===== */
 @keyframes alertGlow {
   from { box-shadow: 0 0 10px rgba(255,82,82,0.3); }
   to   { box-shadow: 0 0 30px rgba(255,82,82,0.8); }
 }
 
-/* ===== コード風 ===== */
 code {
   color: #ffca28;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background: #050505;
+  color: #00ff9c;
+  font-family: "Courier New", monospace;
+  line-height: 1.7;
+}
+
+header {
+  background: linear-gradient(90deg, #0a0a0a, #001f14);
+  border-bottom: 2px solid #00ff9c;
+  padding: 24px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  color: #1affad;
+}
+
+main {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.section {
+  background: #020202;
+  border: 1px solid #00ff9c;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 20px rgba(0,255,156,0.25);
+}
+
+.section h2 {
+  margin-top: 0;
+  color: #ffca28;
+}
+
+.alert {
+  background: #140000;
+  border-left: 6px solid #ff5252;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.safe {
+  background: #001f14;
+  border-left: 6px solid #00ff9c;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+pre {
+  background: black;
+  color: #8affc1;
+  padding: 15px;
+  overflow-x: auto;
+  border: 1px solid #333;
+}
+
+code {
+  color: #ffca28;
+}
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: #4dffb5;
+  padding: 20px;
+  border-top: 1px solid #00ff9c;
 }
 </style>
 </head>
@@ -120,20 +211,53 @@ code {
 
 <header>
   <h1>⚠ XSS 攻撃デモ</h1>
-  <p>ユーザー入力が「コード」として実行される危険性</p>
+  <p>DOM型XSS / フォーム入力の危険性</p>
 </header>
 
 <main>
 
+<!-- ===== XSS 説明 ===== -->
+<div class="explain">
+  <h2>🔐 XSS（Cross-Site Scripting）とは</h2>
+  <p>
+    XSSとは、<b>攻撃者が入力したスクリプトが</b><br>
+    <b>正規サイトの権限で実行されてしまう脆弱性</b>です。
+  </p>
+
+  <h2>🧠 このページで起きていること</h2>
+  <ul>
+    <li>このデモは <b>DOM型XSS</b></li>
+    <li>サーバー（PHPなど）は使用していない</li>
+    <li>JavaScriptが直接HTMLを書き換えている</li>
+  </ul>
+
+  <h2>⚙ 技術ごとの役割</h2>
+  <ul>
+    <li><b>HTML</b>：攻撃コードの入口</li>
+    <li><b>JavaScript</b>：攻撃コードを実行</li>
+    <li><b>PHP</b>：実際のサイトでは表示時にXSSを発生させる原因</li>
+  </ul>
+
+  <h2>🍪 Cookieが盗まれる理由</h2>
+  <p>
+    XSSが成功すると、攻撃者のJavaScriptは<br>
+    <b>document.cookie</b> にアクセスできます。<br>
+    HttpOnlyが無いCookieは盗まれ、<br>
+    <b>ログインなりすまし</b>が可能になります。
+  </p>
+</div>
+
+<!-- ===== 注意 ===== -->
 <div class="info">
   <b>⚠ 危険：</b><br>
   入力内容がそのまま <b>HTMLとして実行</b> されます。<br>
-  例：<code> img src=x onerror="alert('XSS')"</code>
+  例：<code>&lt;img src=x onerror=alert(document.cookie)&gt;</code>
 </div>
 
+<!-- ===== デモ ===== -->
 <div class="card">
   <form id="form">
-    <input type="text" id="msg" placeholder=>
+    <input type="text" id="msg" placeholder="攻撃コードを入力">
     <button>EXECUTE</button>
   </form>
 </div>
@@ -143,6 +267,151 @@ code {
 </div>
 
 </main>
+<header>
+  <h1>🔐 XSS 対策コード解説</h1>
+  <p>「なぜ安全なのか」をコードで理解する</p>
+</header>
+
+<main>
+
+<!-- ===================== -->
+<div class="section">
+  <h2>① JavaScript（DOM型XSS対策）</h2>
+
+  <div class="alert">
+    ❌ 危険なコード：ユーザー入力を HTML として実行
+  </div>
+
+  <pre><code>
+// DOM型XSSが発生する原因
+element.innerHTML = userInput;
+  </code></pre>
+
+  <p>
+    <b>innerHTML</b> は文字列を HTML として解釈するため、<br>
+    &lt;script&gt; や onerror 属性が実行されてしまいます。
+  </p>
+
+  <div class="safe">
+    ✅ 安全なコード：文字として表示
+  </div>
+
+  <pre><code>
+// XSS対策（推奨）
+element.textContent = userInput;
+  </code></pre>
+
+  <p>
+    <b>textContent</b> は HTML を解釈せず、<br>
+    ただの文字列として出力します。
+  </p>
+</div>
+
+<!-- ===================== -->
+<div class="section">
+  <h2>② PHP（反射型・保存型XSS対策）</h2>
+
+  <div class="alert">
+    ❌ 危険なPHP：エスケープなし
+  </div>
+
+  <pre><code>
+echo $_POST["msg"];
+  </code></pre>
+
+  <p>
+    HTMLタグがそのまま出力され、<br>
+    JavaScriptが実行される可能性があります。
+  </p>
+
+  <div class="safe">
+    ✅ 安全なPHP：HTMLエスケープ
+  </div>
+
+  <pre><code>
+echo htmlspecialchars(
+  $_POST["msg"],
+  ENT_QUOTES,
+  "UTF-8"
+);
+  </code></pre>
+
+  <p>
+    <b>&lt; &gt; " '</b> を無害化し、<br>
+    HTMLとして解釈されなくなります。
+  </p>
+</div>
+
+<!-- ===================== -->
+<div class="section">
+  <h2>③ Cookie を守る対策</h2>
+
+  <p>
+    XSSの最終目的は <b>セッションCookieの窃取</b> です。
+  </p>
+
+  <div class="safe">
+    ✅ Cookie防御設定（PHP）
+  </div>
+
+  <pre><code>
+setcookie("session_id", $id, [
+  "httponly" => true,
+  "secure" => true,
+  "samesite" => "Strict"
+]);
+  </code></pre>
+
+  <ul>
+    <li><b>HttpOnly</b>：JavaScriptから取得不可</li>
+    <li><b>Secure</b>：HTTPS通信限定</li>
+    <li><b>SameSite</b>：CSRF対策</li>
+  </ul>
+</div>
+
+<!-- ===================== -->
+<div class="section">
+  <h2>④ CSP（最終防衛ライン）</h2>
+
+  <p>
+    CSPは「どのJavaScriptを実行してよいか」を<br>
+    ブラウザに指示する仕組みです。
+  </p>
+
+  <pre><code>
+Content-Security-Policy:
+script-src 'self';
+  </code></pre>
+
+  <p>
+    インラインスクリプトや<br>
+    外部の悪意あるJSをブロックします。
+  </p>
+</div>
+
+<!-- ===================== -->
+<div class="section">
+  <h2>⑤ 対策まとめ</h2>
+
+  <pre><code>
+✔ innerHTML を使わない
+✔ textContent を使う
+✔ PHPで htmlspecialchars()
+✔ Cookieに HttpOnly
+✔ CSP を設定
+  </code></pre>
+
+  <p>
+    XSS対策は <b>1つでは不十分</b>。<br>
+    複数レイヤーで防御することが重要です。
+  </p>
+</div>
+
+</main>
+
+<footer>
+  XSS対策とは「実行させない・盗らせない・入れさせない」
+</footer>
 
 <script>
 document.getElementById("form").addEventListener("submit", function(e) {
@@ -150,7 +419,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
   const input = document.getElementById("msg").value;
 
-  // ❌ 超危険：XSS脆弱コード
+  // ❌ DOM型XSS脆弱コード
   document.getElementById("posts").innerHTML = input;
 
   document.getElementById("msg").value = "";

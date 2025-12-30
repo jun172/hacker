@@ -3,6 +3,7 @@ import logging
 import sqlite3
 import os
 
+
 logging.basicConfig(level=logging.DEBUG)
 
 SQL = Blueprint("SQL", __name__, template_folder="templates")
@@ -30,7 +31,8 @@ def init_db():
     INSERT OR IGNORE INTO users (id, username, password)
     VALUES
         (1, 'admin', 'admin'),
-        (2, 'user', 'password')
+        (2, 'user', 'password'),
+        (3,'神戸電子','kobedensi')
     """)
 
     conn.commit()
@@ -50,26 +52,32 @@ init_db()
 @SQL.route("/login", methods=["GET", "POST"])
 def login():
     db_result = []
+    all_users = []          # ← 追加（DB全体）
     show_result = False
     result_message = ""
     debug_query = ""
 
-    if request.method == "POST":
-        user = request.form["username"]
-        pwd  = request.form["password"]
+    try:
+        conn = get_db()
+        cur = conn.cursor()
 
-        # ❌ わざと脆弱（SQLインジェクション教材用）
-        debug_query = f"""
-        SELECT * FROM users
-        WHERE username = '{user}'
-        AND password = '{pwd}'
-        """
+        # 🔥 常にDBの中身を取得（教材用）
+        cur.execute("SELECT * FROM users")
+        all_users = cur.fetchall()
 
-        logging.debug(f"DEBUG SQL: {debug_query}")
+        if request.method == "POST":
+            user = request.form["username"]
+            pwd  = request.form["password"]
 
-        try:
-            conn = get_db()
-            cur = conn.cursor()
+            # ❌ わざと脆弱（SQLインジェクション教材用）
+            debug_query = f"""
+            SELECT * FROM users
+            WHERE username = '{user}'
+            AND password = '{pwd}'
+            """
+
+            logging.debug(f"DEBUG SQL: {debug_query}")
+
             cur.execute(debug_query)
             db_result = cur.fetchall()
 
@@ -78,18 +86,57 @@ def login():
             else:
                 result_message = "ログイン失敗"
 
-        except Exception as e:
-            result_message = f"SQLエラー: {e}"
+            show_result = True
 
-        finally:
-            conn.close()
-
+    except Exception as e:
+        result_message = f"SQLエラー: {e}"
         show_result = True
+
+    finally:
+        conn.close()
 
     return render_template(
         "SQL.html",
         show_result=show_result,
         result_message=result_message,
         query=debug_query,
-        db_result=db_result
+        db_result=db_result,
+        all_users=all_users     # ← HTMLに渡す
     )
+
+
+@SQL.route("/SQL2.html",methods=["GET"])
+def sql2():
+    conn = get_db()
+    cur = conn.cursor()
+    
+    cur.execute("SELECT * FROM users")
+    users = cur.fetchall()
+    
+    conn.close()
+    
+    return render_template("/SQL2.html",users=users)
+
+@SQL.route("/SQL3.html",methods=["GET"])
+def sql3():
+    conn = get_db()
+    cur = conn.cursor()
+    
+    cur.execute("SELECT * FROM users")
+    users = cur.fetchall()
+    
+    conn.close()
+    
+    return render_template("/SQL3.html",users=users)
+
+@SQL.route("/SQL4.html",methods=["GET","POST"])
+def sql4():
+    conn = get_db()
+    cur = conn.cursor()
+    
+    cur.execute("SELECT * FROM users")
+    users = cur.fetchall()
+    
+    conn.close()
+    
+    return render_template("/SQL4.html",users=users)

@@ -264,11 +264,45 @@ WHERE username = '' OR '1'='1' AND password = 'xxx';
 <section class="practice">
   <h2>（デモ）ログインフォーム</h2>
   <p>※ 学習用の例です。実運用では使ってはいけません。</p>
-  <form method="POST" action="#">
+
+  <!-- フォーム -->
+  <form method="POST" action="/SQL/login">
     <input type="text" name="username" placeholder="User">
-    <input type="text" name="password" placeholder="Password">
+    <input type="password" name="password" placeholder="Password">
     <button type="submit">Login</button>
   </form>
+
+  <!-- 結果表示 -->
+  {% if show_result %}
+  <div class="danger" style="margin-top:20px; padding:16px; border-radius:12px;">
+    <h3>ログイン結果</h3>
+
+    <p>{{ result_message }}</p>
+
+    <h4>実行されたSQL</h4>
+    <pre>{{ query }}</pre>
+
+    {% if db_result %}
+      <h4>データベースの中身（本来は表示してはいけません）</h4>
+      <table border="1" cellpadding="10">
+        <tr>
+          <th>ID</th>
+          <th>ユーザー名</th>
+          <th>パスワード</th>
+        </tr>
+        {% for user in db_result %}
+        <tr>
+          <td>{{ user["id"] }}</td>
+          <td>{{ user["username"] }}</td>
+          <td>{{ user["password"] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p>一致するユーザーはいません</p>
+    {% endif %}
+  </div>
+  {% endif %}
 </section>
 
 <section class="safe">
@@ -303,8 +337,6 @@ cursor.execute(sql, (user, pwd))
     <li>必ずプリペアドステートメントを使う</li>
   </ul>
 </section>
-
 </main>
 </body>
-</html>
-
+</html> 
