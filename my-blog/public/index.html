@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>My Journal - ホーム</title>
+<meta name="description" content="技術向上・夢・ジャーナルの記録をまとめたブログです。">
+<meta name="keywords" content="ブログ, 技術向上, マイアミ, 海外生活, ジャーナル">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ===== 全体 ===== */
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  margin:0;padding:0;
+  background:linear-gradient(180deg,#f5f7fa,#e0eafc);
+  color:#333;
+  line-height:1.8;
+}
+
+/* ===== ヘッダー ===== */
+header{
+  text-align:center;padding:50px 20px;
+  background:linear-gradient(135deg,#1e3c72,#2a5298);
+  color:#fff;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+header h1{margin:0;font-size:2.8em;}
+header p{margin-top:10px;font-size:1.2em;font-weight:300;}
+
+/* ===== パンくずリスト ===== */
+.breadcrumbs {
+  max-width:1200px;
+  margin:20px auto;
+  padding:10px 20px;
+  font-size:0.9em;
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+.breadcrumbs a {
+  text-decoration:none;
+  color:#2a5298;
+  margin-right:5px;
+}
+.breadcrumbs a:hover{ text-decoration:underline; }
+.breadcrumbs span{ margin-right:5px; color:#777; }
+
+/* ===== コンテナ ===== */
+.container{
+  max-width:1200px;margin:0 auto;padding:0 20px;
+  display:flex;gap:30px;
+}
+
+/* ===== サイドバー ===== */
+.sidebar{
+  width:250px;
+  position:sticky;
+  top:20px;
+  align-self:flex-start;
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  height:max-content;
+}
+.sidebar h3{margin-top:0;color:#00796b;font-size:1.2em;}
+.sidebar ul{
+  list-style:none;
+  padding-left:0;
+  margin:0;
+}
+.sidebar ul li{
+  margin-bottom:10px;
+}
+.sidebar ul li a{
+  text-decoration:none;
+  color:#2a5298;
+  transition: color 0.3s;
+}
+.sidebar ul li a:hover, .sidebar ul li a:target{
+  color:#ff6f61;
+  font-weight:bold;
+}
+
+/* ===== メイン記事 ===== */
+.main{
+  flex:1;
+}
+
+/* ===== このブログの目的 ===== */
+.purpose {
+  background: linear-gradient(135deg,#e0f7fa,#ffffff);
+  padding:50px 40px;
+  margin-bottom:50px;
+  border-radius:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+  text-align:center;
+  transition: all 1s ease;
+}
+
+.purpose h2 {
+  font-size:2em;
+  color:#00796b;
+  margin-bottom:20px;
+  display:inline-block;
+  position:relative;
+}
+.purpose h2::after {
+  content:'';
+  display:block;
+  width:60px;
+  height:4px;
+  background:#00796b;
+  margin:10px auto 0 auto;
+  border-radius:2px;
+}
+
+.purpose .intro,
+.purpose .note {
+  font-size:1.1em;
+  color:#004d40;
+  margin-bottom:20px;
+  line-height:1.6;
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+
+.purpose .goal-list {
+  list-style:none;
+  padding-left:0;
+  margin:20px auto;
+  display:inline-block;
+  text-align:left;
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s 0.5s forwards;
+}
+
+.purpose .goal-list li {
+  font-size:1.1em;
+  margin-bottom:12px;
+  padding-left:35px;
+  position:relative;
+  line-height:1.6;
+}
+.purpose .goal-list li::before {
+  content:'✔';
+  position:absolute;
+  left:0;
+  color:#00796b;
+  font-weight:bold;
+}
+
+/* ===== 記事カード ===== */
+.articles {
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+  justify-content:flex-start;
+}
+
+.article-card {
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+  width:280px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  text-align:center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.article-card img {
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+.article-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow:0 20px 30px rgba(0,0,0,0.3);
+}
+.article-card a {
+  text-decoration:none;
+  font-size:1.1em;
+  color:#2a5298;
+  font-weight:500;
+}
+.article-card a:hover{color:#ff6f61;}
+.article-card small{
+  display:block;
+  margin-top:5px;
+  color:#777;
+}
+
+/* ===== フェードインアニメーション ===== */
+@keyframes fadeInUp {
+  to { opacity:1; transform: translateY(0);}
+}
+
+/* ===== レスポンシブ ===== */
+@media screen and (max-width:1024px){
+  .container{flex-direction:column;}
+  .sidebar{width:100%;position:relative;top:auto;margin-bottom:20px;}
+  .articles{justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>My Journal</h1>
+  <p>私のブログ記事一覧</p>
+</header>
+
+<!-- ===== パンくずリスト ===== -->
+<div class="breadcrumbs">
+  <a href="#">ホーム</a><span>&gt;</span>
+  <a href="#">記事一覧</a><span>&gt;</span>
+  <span>マイアミで暮らす夢</span>
+</div>
+
+
+  <!-- ===== メイン記事 ===== -->
+  <main class="main">
+    <!-- このブログの目的 -->
+    <section class="purpose" id="purpose">
+      <h2>🌏 このブログの目的</h2>
+      <p class="intro">
+        私は海外に挑戦しようとしている日本人です。<br>
+        このブログでは、以下の3つの目的で記事を作成しています：
+      </p>
+      <ul class="goal-list">
+        <li>💡 <strong>技術向上</strong>：日々の学びを整理し、自分のスキルを高める</li>
+        <li>🚀 <strong>夢の実現</strong>：海外生活やキャリアの目標を具体化し、記録する</li>
+        <li>📝 <strong>ジャーナル</strong>：経験を振り返り、成長を確認する</li>
+      </ul>
+      <p class="note">
+        今後もこのブログを通じて、自分の経験や学びを整理・共有していきます。
+      </p>
+    </section>
+
+    <!-- 記事カード -->
+    <section class="articles">
+      <div class="article-card" id="article1">
+        <img src="images/post1.jpg" alt="最初の記録">
+        <a href="post1.html">最初の記録</a>
+        <small>2025-01-01</small>
+      </div>
+      <div class="article-card" id="article2">
+        <img src="images/post2.jpg" alt="Node.js学習">
+        <a href="post2.html">Node.js学習</a>
+        <small>2025-01-02</small>
+      </div>
+      <div class="article-card" id="article3">
+        <img src="images/miami.jpg" alt="マイアミで暮らす夢">
+        <a href="post.html">マイアミで暮らす夢</a>
+        <small>2025-12-26</small>
+      </div>
+    </section>
+  </main>
+</div>
+
+</body>
+</html>
