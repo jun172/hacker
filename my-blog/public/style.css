@@ -22,3 +22,1103 @@ a {
     color: yellow;
 }
 
+span {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2{
+    text-decoration: underline;
+}
+
+p{
+    text-align: center;
+}
+
+.small-text{
+    font-size: 12px;
+}
+
+li {
+    list-style-type: disc;
+    color: red;
+}
+
+div{
+    color: #000;
+}
+
+.note{
+    font-style: italic;
+}
+
+h3{
+    background: linear-gradient(90deg,blue,pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+p{
+    line-height: 1.5;
+}
+
+.bold-red {
+    color: red;
+    font-weight: bold;
+}
+
+a:hover {
+    color: orange;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+p::first-letter{
+    font-size: 200%;
+}
+
+.hidden-text {
+    display: none;
+}
+
+div.box{
+    width: 200px;
+    height: 100px;
+}
+
+div.box{
+    padding:20px
+}
+
+div.box{
+    border: 1px solid black;
+}
+
+div.box{
+    border-radius: 8px;
+}
+
+.container{
+    margin: 50px auto;
+}
+
+div.box{
+    background-color: #f0f0f0;
+}
+
+div.box{
+    width: 100px;
+    height: 100px;
+}
+
+div.box{
+    height: auto;
+}
+
+.box1{
+    margin-left: 50px;
+}
+
+.box2 {
+    margin-left: 50px;
+}
+
+.box{
+    padding: 20px;
+    padding-bottom: 20px;
+}
+
+.box {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.box{
+    border:2px dashed black;
+}
+
+.box{
+    border: none;
+}
+
+.box{
+    border: 1px solid black;
+    background-color: #e0e0e0;
+}
+
+.box{
+    margin: 0 auto;
+}
+
+.box{
+    margin: 20px;
+}
+
+.box{
+    padding: 0;
+}
+
+.container{
+    display: flex;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item .large{
+    flex: 2;
+}
+
+.item2{
+    order: 1;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.container{
+    display: flex;
+    align-items: stretch;
+}
+
+.container{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container > .item{
+    flex: 1;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+}
+
+.item-senter {
+    margin: auto;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns:  repeat(3,1fr);
+    grid-template-rows: repeat(2,auto);
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.grid{
+    display: grid;
+    place-items: center;
+}
+
+.grid-item {
+    justify-self: end;
+    align-self: end;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+}
+.header{ grid-area: header; }
+.sidebar{ grid-area: sidebar; }
+.main{ grid-area: mian; }
+.footer { grid-area: footer; }
+
+.grid-item {
+    width: 100%;
+    height: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: repeat(3, 50px);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+}
+
+@media (max-width: 600px) {
+    .grid{
+        grid-template-columns: 1ft;
+    }
+}
+
+.grid > :first-child {
+    background-color: lightblue;
+}
+
+.grid-item {
+    align-self: center;
+}
+
+.grid-item {
+    justify-self: center;
+}
+
+.grid-item {
+    place-self: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 1ft 2ft 1ft;
+}
+
+.grid-item{
+    padding: 10px;
+}
+
+.grid-item{
+    margin: 5px;
+}
+
+.item{ order: 2; }
+.item{ order: 1; }
+
+.button {
+    background-color: blue;
+    color: white;
+    transition: bacgrand-color 0.3s;
+}
+
+.button:hover {
+    background-color: darkblue;
+}
+
+.button:active {
+    background-color:  navy;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.item::before {
+    content: " ⭐️";
+    color: gold;
+}
+
+.item::after {
+    color: " →";
+    color: gray;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.box-shadow{
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+}
+
+.bg-image {
+    background-image: url("example.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-image-repeat{
+    background-image: url("example.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-image-center{
+    background-image: url("examle.jpg");
+    background-position: center;
+}
+
+.butoon-transition {
+    background-color: green;
+    transition: backgrand-color 0.3s ease;
+}
+
+.butoon-transition:hover {
+    background-color: darkgreen;
+}
+
+.button-scale {
+    transition: transfrom　0.3s;
+}
+.button-scale:hover {
+    transform: scale(1.1);
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fqdeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1;}
+}
+
+.slide-in {
+    transform: translateX(-100%);
+    animation: slideIn 1s forwards;
+}
+@keyframes slide-in {
+    to { transform: translateX(0);}
+}
+
+li:first-child {
+    color: red;
+}
+
+li:nth-child(even) {
+    background-color: #e0e0e0;
+}
+
+input:focus {
+    border:  2px solid blue;
+    outline:  none;
+}
+
+.button-rounded-shadow {
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.item .large{
+    flex:2;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item1 { order: 2; }
+.item2 { order: 1; }
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container{
+    display: flex;
+    min-height: 200px;
+}
+
+.item { 
+    flex: 1;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.item .special {
+    margin-left: auto;
+}
+
+.item {
+    margin: 10px;
+}
+
+.container{
+    display: flex;
+    align-items: stretch;
+}
+
+.container {
+    display: flex;
+    align-items:  flex-start;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.item:first-child { order: 2; }
+.item:last-child { order: 1; }
+
+.item {
+    flex:1;
+}
+
+.item{ flex: 2;}
+.item1{ flex: 1; }
+
+.item{
+    margin: 10px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.item {
+    flex: 1 1 auto;
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    gap: 10px;
+}
+
+.grid-item {
+    justify-self: center;
+    align-self: center;
+}
+
+.grid-item {
+    justify-self: end;
+    align-self: end;
+}
+
+.grid > :nth-child(-n + 4){
+    background-color: lightblue;
+}
+
+.grid {
+    display: grid;
+    grid-template-areas: 
+    "header header "
+    "sidebar main"
+    "foot footer";
+}
+
+.header { grid-area: header;}
+.sidebar { grid-area: sidebar;}
+.main{ grid-area: main; }
+.footer { grid-area: footer; }
+
+.grid-item {
+    place-self: center;
+}
+
+.grid-item{
+    width: 100%;
+    height: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows:100px auto 50px ;
+}
+
+.grid{
+    gap:20px;
+}
+
+.grid-item {
+    margin: 5px;
+}
+
+.grid-item {
+    padding: 5px;
+}
+
+.item1{ order: 2;}
+.item2{ order: 1;}
+
+@media (max-widt:600px) {
+    .grid{ 
+        grid-template-columns: 1fr;
+    }
+}
+
+.grid {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.item{
+    grid-column: span 2;
+}
+.item{
+    grid-row: span 2;
+}
+
+.grid{
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 10px;
+}
+
+.grid {
+    grid-template-columns: repeat(3,1fr);
+}
+
+@media (max-width: 769px){
+    .container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1024px){ 
+    .box{
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .box{
+        padding: 10px;
+    }
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+@media(max-width: 600px){
+    .grid{
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .nav{
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .button{
+        width: 100%;
+    }
+}
+
+.responsive-box {
+    height: auto;
+}
+
+@media (max-width: 600px) {
+    img{
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.container {
+    text-align: center;
+}
+@media (max-width: 600px) {
+    .container{
+        text-align: left;
+    }
+}
+
+h1{
+    font-size: clamp(24px, 5vw, 48px);
+}
+
+.box{
+    padding: calc(10px + 2vw);
+}
+
+.title {
+    font-size: 5vw;
+}
+
+.card {
+    min-width: 250px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (orientation: landscape) {
+    body {
+        background-color: lightgray;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: white;
+    }
+}
+
+@media (min-resolution: 2dppx) {
+    img{
+        image-rendering: auto;
+    }
+}
+
+@media (hover: hover) {
+    .button:hover{
+        background-color: red;
+    }
+}
+
+@media (max-width: 600px) {
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+}
+
+.container {
+    display: flex;
+}
+@media (max-width: 600px) {
+    .container{
+        flex-direction: column;
+    }
+}
+
+.grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+@media (max-width: 600px) {
+    .box{
+        box-shadow: none;
+    }
+}
+
+.hero {
+    height: 100vh;
+}
+
+.container{
+    padding: 10px;
+}
+
+@media (min-width: 768px) {
+    .container{
+        padding: 40px;
+    }
+}
+
+.fade-move {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fedeMove 1s forwards;
+}
+@keyframes fadeMove {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.spin {
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate:hover {
+    transform: rotate(10deg);
+    transition: transfrom 0.3s;
+}
+
+.card {
+    transition: box-shadow 0.3s;
+}
+.card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.button {
+    transition: all 0.3s;
+}
+
+.button:hover {
+    background-color:  orange;
+    transform: scale(1.05);
+}
+
+/* 181. バウンドアニメーション */
+.bounce {
+    animation: bounce 1s infinite alternate;
+}
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20px); }
+}
+
+/* 182. 遅延付きアニメーション */
+.delay {
+    animation: fadeMove 1s 0.5s forwards;
+}
+/* 183. アニメーション停止 */
+.stop{
+    animation-play-state: paused;
+}
+/* 184. ease-in-out */
+.smooth {
+    transition: all 0.4s ease-in-out;
+}
+
+/* 185. hoverで下線が伸びる */
+.link {
+    position: relative;
+}
+.link::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: width 0.3ms;
+}
+.link:hover::after{
+    width: 100px;
+}
+
+/* 186. スライドイン（左） */
+.slide-left {
+    transform: translateX(-100%);
+    animation: slideLeft 1s forwards;
+}
+@keyframes slide-left {
+    to { transform: translateX(0); }
+}
+
+/* 187. フェードアウト */
+.fade-out {
+    animation: fadeOut 1s forwards;
+}
+@keyframes fade-out{
+    to { opacity: 0;}
+}
+/* 188. 点滅アニメーション */
+.blink{
+    animation: blink 1s infinite;
+}
+@keyframes blink{ 
+    50% { opacity: 0;}
+}
+/* 189. hoverで背景グラデーション */
+.gradient-hover:hover{
+    background: linear-gradient(45deg, red ,blue);
+}
+/* 190. transform-origin変更 */
+.rotate-center {
+    transform-origin: center;
+}
+/* 191. 3D回転 */
+.rotate-3d {
+    transform: rotateY(20deg);
+}
+.delay-hover {
+    transition-delay: 0.2s;
+}
+
+/* 193. scale＋shadow同時 */
+.zoom{
+    transition: transfrom 0.3s, box-shadow 0.3s;
+}
+.zoom:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px,rgb(0,0,0,0.3);
+}
+
+/* 194. keyframesを複数指定 */
+.multi {
+    animation: fadeIn 1s, spin 2s linear infinite;
+}
+
+/* 195. animation-fill-mode */
+.fill {
+    animation: fadeMove 1s forwards;
+}
+/* 196. animation-direction */
+.reverse {
+    animation: spin 2s linear infinite reverse;
+}
+/* 197. animation-iteration-count */
+.once {
+    animation: fadeMove 1s 1;
+}
+/* 198. prefers-reduced-motion対応 */
+@media (prefers-reduced-motion: reduce) {
+    *{
+        animation: none;
+        transition: none;
+    }
+}
+
+/* 199. hoverで要素を浮かせる */
+.float:hover {
+    transform: translateY(-5px);
+    transition: transfrom 0.2s;
+}
+
+/* 200. 実務定番：カードhover演出 */
+.card {
+    transition: transfrom 0.3s, box-shadow 0.3s;
+}
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #131921;
+    color: #fff;
+  }
+  
+  .header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+  }
+  
+  .header-logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .header-search {
+    flex: 1;
+  }
+  
+  .header-search input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+  }
+  
+  .header-nav {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal {
+    width: min(90%, 420px);
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    animation: fadeUp .3s ease;
+  }
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+  
+  .card-img img {
+    width: 100%;
+    display: block;
+  }
+  
+  .card-body {
+    padding: 16px;
+  }
+  
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .card-price {
+    color: #b12704;
+    font-weight: bold;
+    margin-top: 8px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #0070f3;
+  }
+  
+
+  .btn-primary {
+    background: #0070f3;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+  
