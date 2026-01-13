@@ -1,0 +1,47 @@
+body { font-family:'Poppins',sans-serif; margin:0; padding-top:70px; background:#f5f5f5; color:#333; }
+
+/* ヘッダー */
+.header { position:fixed; top:0; left:0; width:100%; height:70px; background:#131921; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 20px; z-index:1000; }
+.logo { font-size:1.5rem; font-weight:bold; }
+.search { display:flex; flex:1; max-width:400px; margin:0 20px; }
+.search input { flex:1; padding:6px 10px; border:none; border-radius:4px 0 0 4px; }
+.search button { padding:6px 10px; border:none; border-radius:0 4px 4px 0; background:#febd69; cursor:pointer; }
+.header__links a { color:#fff; margin-left:15px; text-decoration:none; }
+.header__nav a { color:#fff; text-decoration:none; margin-left:15px; }
+
+/* ハンバーガー */
+.hamburger { display:none; flex-direction:column; justify-content:space-between; width:25px; height:20px; cursor:pointer; }
+.hamburger span { height:3px; background:#fff; border-radius:2px; display:block; transition:0.3s; }
+.menu-toggle { display:none; }
+.menu-toggle:checked + .hamburger span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
+.menu-toggle:checked + .hamburger span:nth-child(2){ opacity:0; }
+.menu-toggle:checked + .hamburger span:nth-child(3){ transform:rotate(-45deg) translate(6px,-6px); }
+
+/* ナビ（PC） */
+.header__nav { display:flex; gap:15px; }
+
+/* Hero */
+.hero { background:#0072ff; color:#fff; text-align:center; padding:80px 20px; }
+.hero h2 { font-size:2rem; margin-bottom:10px; }
+.hero p { font-size:1.2rem; }
+.hero .btn { padding:10px 20px; border-radius:4px; background:#febd69; color:#000; text-decoration:none; font-weight:bold; }
+
+/* 商品グリッド */
+.products { padding:40px 20px; }
+.products__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+.product-card { background:#fff; padding:15px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center; transition:transform 0.3s, box-shadow 0.3s; }
+.product-card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.product-card img { width:100%; border-radius:4px; margin-bottom:10px; }
+.product-card button { margin-top:10px; padding:6px 12px; background:#febd69; border:none; border-radius:4px; cursor:pointer; }
+
+/* フッター */
+.footer { text-align:center; padding:20px; background:#131921; color:#fff; }
+
+/* レスポンシブ */
+@media(max-width:768px){
+  .search { max-width:100%; }
+  .header__nav { display:none; flex-direction:column; background:#131921; position:absolute; top:70px; left:0; width:100%; padding:10px 0; }
+  .menu-toggle:checked + .hamburger + .header__nav { display:flex; }
+  .hamburger { display:flex; }
+  .products__grid { grid-template-columns:1fr; }
+}

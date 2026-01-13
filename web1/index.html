@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyECサイト</title>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <!-- ===== ヘッダー ===== -->
+  <header class="header">
+    <div class="header__inner">
+      <h1 class="logo">MyEC</h1>
+
+      <!-- 検索バー -->
+      <div class="search">
+        <input type="text" placeholder="商品を検索">
+        <button>検索</button>
+      </div>
+
+      <!-- アカウント/カート -->
+      <div class="header__links">
+        <a href="account.html">アカウント</a>
+        <a href="#">カート</a>
+      </div>
+
+      <!-- ハンバーガー -->
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <!-- モバイルナビ -->
+      <nav class="header__nav">
+        <a href="#">Home</a>
+        <a href="#">カテゴリ</a>
+        <a href="#">特集</a>
+        <a href="account.html">アカウント</a>
+        <a href="#">カート</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero/Banner ===== -->
+  <section class="hero">
+    <h2>今月のセール商品</h2>
+    <p>人気商品をチェック！</p>
+    <a href="#" class="btn">セールをチェック</a>
+  </section>
+
+  <!-- ===== 商品グリッド ===== -->
+  <section class="products">
+    <h2>おすすめ商品</h2>
+    <div class="products__grid">
+      <div class="product-card">
+        <img src="https://via.placeholder.com/150" alt="商品1">
+        <h3>商品名1</h3>
+        <p>¥2,980</p>
+        <button>カートに追加</button>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/150" alt="商品2">
+        <h3>商品名2</h3>
+        <p>¥1,980</p>
+        <button>カートに追加</button>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/150" alt="商品3">
+        <h3>商品名3</h3>
+        <p>¥3,500</p>
+        <button>カートに追加</button>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/150" alt="商品4">
+        <h3>商品名4</h3>
+        <p>¥4,200</p>
+        <button>カートに追加</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== フッター ===== -->
+  <footer class="footer">
+    <p>© MyEC 2025</p>
+  </footer>
+</body>
+</html>
