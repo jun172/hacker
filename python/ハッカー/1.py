@@ -20,7 +20,7 @@ def handle_client(client):
 server = socket.socket()
 server.bind(("192.168.10.111", 9901))
 server.listen(1)
-print("[*] C2 listening on 0000")
+print("[*] C2 listening on 9901")
 
 client, addr = server.accept()
 handle_client(client)
