@@ -4,7 +4,7 @@ import string
 import time
 
 TARGET_IP   = "127.0.0.1"
-TARGET_PORT = 1054     # あなたの IDS
+TARGET_PORT = 8081    # あなたの IDS
 INTERVAL    = 0.05     # 攻撃速度（小さいほど速い）
 
 def random_domain():

