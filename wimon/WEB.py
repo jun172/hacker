@@ -6,7 +6,7 @@ from DT import DT
 from ONE import ONE
 from FU import FU
 from DARK import DARK
-
+from AUTH import AUTH
 
 
 
@@ -26,7 +26,7 @@ app.register_blueprint(DT,url_prefix='/DT')
 app.register_blueprint(ONE, url_prefix='/ONE')
 app.register_blueprint(FU, url_prefix='/FU')
 app.register_blueprint(DARK,url_prefix='/DARK')
-
+app.register_blueprint(AUTH,url_prefix='/AUTH')
 
 
 

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>攻撃ログ可視化 | Cyber Lab</title>
+
+  <style>
+    body {
+      background: #0b0f1a;
+      color: #e0faff;
+      font-family: "Segoe UI", sans-serif;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00f5ff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #00f5ff66;
+    }
+
+    /* テーブル全体 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(10, 20, 40, 0.9);
+      box-shadow: 0 0 25px #00f5ff22;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: linear-gradient(135deg, #00f5ff, #0077ff);
+      color: #000;
+      letter-spacing: 0.05em;
+    }
+
+    tr {
+      border-bottom: 1px solid #00f5ff22;
+    }
+
+    tr:nth-child(even) {
+      background: rgba(0, 245, 255, 0.04);
+    }
+
+    tr:hover {
+      background: rgba(0, 245, 255, 0.12);
+    }
+
+    /* 成功・失敗 */
+    .success {
+      color: #00ff99;
+      font-weight: bold;
+    }
+
+    .fail {
+      color: #ff6666;
+      font-weight: bold;
+    }
+
+    /* 戻るリンク */
+    .back {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .back a {
+      color: #00f5ff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 10px 25px;
+      border: 2px solid #00f5ff;
+      border-radius: 25px;
+      transition: 0.3s;
+    }
+
+    .back a:hover {
+      background: #00f5ff22;
+      box-shadow: 0 0 15px #00f5ffaa;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>📊 攻撃ログ可視化</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>ユーザー</th>
+    <th>IP</th>
+    <th>試行回数</th>
+    <th>成功</th>
+    <th>時間(秒)</th>
+    <th>日時</th>
+  </tr>
+
+  {% for r in rows %}
+  <tr>
+    <td>{{ r[0] }}</td>
+    <td>{{ r[1] }}</td>
+    <td>{{ r[2] }}</td>
+    <td>{{ r[3] }}</td>
+
+    {% if r[4] == 1 %}
+      <td class="success">YES</td>
+    {% else %}
+      <td class="fail">NO</td>
+    {% endif %}
+
+    <td>{{ r[5] }}</td>
+    <td>{{ r[6] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<div class="back">
+  <a href="/brute">← ブルートフォースに戻る</a>
+</div>
+
+</body>
+</html>

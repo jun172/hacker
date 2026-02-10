@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>新規登録 | Cyber Lab</title>
+
+  <style>
+    body {
+      background: #0b0f1a;
+      color: #e0faff;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00f5ff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00f5ff66;
+    }
+
+    /* コンテナ */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* フォーム */
+    .register-form {
+      background: rgba(10, 20, 40, 0.85);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #00f5ff22;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* 入力欄 */
+    .register-form input {
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #00f5ff55;
+      background: #020617;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .register-form input::placeholder {
+      color: #88cfd6;
+    }
+
+    .register-form input:focus {
+      outline: none;
+      border-color: #00f5ff;
+      box-shadow: 0 0 8px #00f5ff66;
+    }
+
+    /* ボタン */
+    .register-form button {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, #00f5ff, #0077ff);
+      color: #000;
+      transition: 0.3s;
+    }
+
+    .register-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px #00f5ffaa;
+    }
+
+    /* メッセージ */
+    .msg {
+      margin-top: 15px;
+      text-align: center;
+      color: #ffcc66;
+    }
+
+    /* リンク */
+    .links {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .links a {
+      color: #00f5ff;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>📝 新規登録</h2>
+
+    <form method="POST" class="register-form">
+      <input name="username" placeholder="ID" required>
+      <input name="password" placeholder="パスワード" type="password" required>
+      <button type="submit">登録</button>
+    </form>
+
+    <p class="msg">{{ msg }}</p>
+
+    <div class="links">
+      <a href="/login">ログイン</a> |
+      <a href="/brute">ブルートフォース</a>
+    </div>
+  </div>
+
+</body>
+</html>
