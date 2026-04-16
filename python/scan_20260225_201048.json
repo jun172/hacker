@@ -1,0 +1,16 @@
+{
+    "host": "192.168.10.1",
+    "os_guess": "Linux/Unix\u7cfb",
+    "open_ports": [
+        {
+            "port": 53,
+            "banner": null,
+            "risk": null
+        },
+        {
+            "port": 80,
+            "banner": "HTTP/1.0 302 Redirect\r\nDate: Wed, 25 Feb 2026 11:10:48 GMT\r\nServer: Boa/0.94.14rc21\r\nAccept-Ranges: bytes\r\nConnection: close\r\nContent-Type: text/html; charset=ISO-8859-1\r\nX-Frame-Options: SAMEORIGIN\r\nLocation: ./login_main.html\r\n\r\n<HTML><HEAD></HEAD>\n<BODY>\n<H1>302 Redirect</H1>The document has moved\n<A HREF=\"./login_main.html\">here</A>.\n</BODY></HTML>",
+            "risk": null
+        }
+    ]
+}

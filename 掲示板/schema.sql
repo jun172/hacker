@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    message TEXT NOT NULL,
+    create_at TEXT NOT NULL
+);

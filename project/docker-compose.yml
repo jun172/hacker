@@ -1,0 +1,22 @@
+version: "3.9"
+
+secrets:
+  backend:
+    build: ./backend
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
+    frontend:
+      build: ./frontend
+      ports:
+        -"3000:3000"
+      volumes:
+        - ./frontend:/app
+    
+    apache:
+      image: httpd:2.4
+      ports:
+        - "80:80"
+      volumes:
+        - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.comf
